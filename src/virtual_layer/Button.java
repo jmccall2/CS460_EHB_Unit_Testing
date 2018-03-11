@@ -1,17 +1,45 @@
 package virtual_layer;
 
+import simulator.interfaces.ButtonInterface;
+
+/**
+ *
+ */
+enum ButtonStatus
+{
+    LONG_PRESS,
+    SHORT_PRESS,
+    NOT_PRESSED
+}
+
 /**
  *
  */
 public class Button
 {
+
+    private double deltaT;
+    private double currentTime;
+    private double previousTime;
+
+    /**
+     * Constructor for a Button object.
+     */
+    public Button()
+    {
+        deltaT = -1;
+        currentTime = -1;
+        previousTime = -1;
+    }
+
     /**
      *
      * @return
      */
     public ButtonStatus getStatus()
     {
-        //
+        // update time variables
+        // calculate ButtonStatus to return
 
         return null;
     }
