@@ -5,12 +5,7 @@ import simulator.interfaces.ButtonInterface;
 /**
  *
  */
-enum ButtonStatus
-{
-    LONG_PRESS,
-    SHORT_PRESS,
-    NOT_PRESSED
-}
+
 
 /**
  *
