@@ -5,6 +5,14 @@ package logic_layer;
  */
 enum Event
 {
+    /* Entry to the initial state */
+    INIT_EVENT,
+    BUTTON_PRESSED,
+    BRAKE_FORCE_FULLY_ENGAGED,
+    TIMER_TICK,
+
+
+    /* The following events will be discontinued after refactoring the logic interfaces */
     // Button events
     BUTTON_PUSHED,
     BUTTON_HELD,
