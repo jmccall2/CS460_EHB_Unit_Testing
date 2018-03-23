@@ -2,6 +2,8 @@ package virtual_layer;
 
 import simulator.interfaces.BrakeInterface;
 
+import java.text.BreakIterator;
+
 /**
  *
  */
@@ -26,6 +28,15 @@ public class Brake
         // check bounds for pressure argument
         // update currentPressure
         // call setPressure in BrakeInterface
+
+        if (pressure < 0)
+            currentPressure = 0;
+        else if (pressure > 100)
+            currentPressure = 100;
+        else
+            currentPressure = pressure;
+
+        BrakeInterface.setPressure(currentPressure);
     }
 
     /**
@@ -36,7 +47,7 @@ public class Brake
     {
         // return currentPressure
 
-        return -1;
+        return currentPressure;
     }
 
     /**
@@ -48,7 +59,7 @@ public class Brake
         // call isEngaged() from BrakeInterface
         // (I don't think this method exists; need to add it, or keep state in some other way)
 
-        return false;
+        return BrakeInterface.isEngaged();
     }
 
     /* For unit testing purposes */

@@ -45,4 +45,11 @@ public class BrakeInterface
 
       }
   }
+
+  public boolean isEngaged()
+  {
+    //
+
+    return false;
+  }
 }

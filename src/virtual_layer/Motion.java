@@ -31,7 +31,7 @@ public class Motion
         // call getSpeed() from SpeedInterface
         // return speed in m/s
 
-        return -1;
+        return SpeedInterface.getSpeed();
     }
 
     /**
@@ -44,7 +44,13 @@ public class Motion
         // update currentGear/previousGear
         // return current gear
 
-        return null;
+        if (currentGear != GearInterface.getGear())
+        {
+            previousGear = currentGear;
+            currentGear = GearInterface.getGear();
+        }
+
+        return currentGear;
     }
 
     /**
@@ -55,7 +61,7 @@ public class Motion
     {
         // return previousGear
 
-        return null;
+        return previousGear;
     }
 
 
