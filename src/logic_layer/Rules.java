@@ -21,37 +21,35 @@ public class Rules
 
         if (currentState == null)
         {
-            eventToState.put(Event.INIT_EVENT, null);
-            return eventToState;
+            eventToState.put(Event.INIT_EVENT, State.BRAKE_DISENGAGED);
         }
+        else {
 
-        switch(currentState)
-        {
-            // SIMPLER STATES
-            case BRAKE_DISENGAGED:
-                eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, currentState);
-                eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, currentState);
-                eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, currentState);
-                eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, currentState);
-                break;
-            case BRAKE_ENGAGING: // Emergency mode
-                eventToState.put(Event.TIMER_TICK, currentState);
-                eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, currentState);
-                eventToState.put(Event.BUTTON_PRESSED, currentState);
-                break;
-            case BRAKE_ENGAGED:  // Park mode
-                eventToState.put(Event.BUTTON_PRESSED, currentState);
-                break;
-
-            // Different "entry points" to the BRAKE_ENGAGING state, based on the vehicle's speed
-            case HIGH_BRAKING_MODE:
-            case MED_BRAKING_MODE:
-            case LOW_BRAKING_MODE:
-                eventToState.put(Event.BUTTON_PRESSED, currentState);
-                eventToState.put(Event.TIMER_TICK, currentState);
-                break;
-            default:
-                break;
+            switch (currentState) {
+                case BRAKE_DISENGAGED:
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, State.BRAKE_ENGAGED);
+                    // Slow speed, high braking force
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, State.HIGH_BRAKING_MODE);
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
+                    // High speed, low braking force
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.LOW_BRAKING_MODE);
+                case BRAKE_ENGAGING:
+                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
+                    eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
+                    eventToState.put(Event.TIMER_TICK, State.BRAKE_ENGAGING);
+                    break;
+                case BRAKE_ENGAGED:
+                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
+                    break;
+                case HIGH_BRAKING_MODE:
+                case MED_BRAKING_MODE:
+                case LOW_BRAKING_MODE:
+                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
+                    eventToState.put(Event.TIMER_TICK, State.BRAKE_ENGAGING);
+                    break;
+                default:
+                    break;
+            }
         }
 
         return eventToState;
