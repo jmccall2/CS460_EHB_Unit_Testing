@@ -1,6 +1,6 @@
 package logic_layer;
 
-import java.lang.reflect.Array;
+// import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -28,17 +28,17 @@ public class Rules
             switch (currentState) {
                 case BRAKE_DISENGAGED:
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, State.BRAKE_ENGAGED);
-                    // Slow speed, high braking force
+                    // NOTE: Slow speed, high braking force
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, State.HIGH_BRAKING_MODE);
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
-                    // High speed, low braking force
+                    // NOTE: High speed, low braking force
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.LOW_BRAKING_MODE);
-                case BRAKE_ENGAGING:
+                case BRAKE_ENGAGING: // Emergency mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
                     eventToState.put(Event.TIMER_TICK, State.BRAKE_ENGAGING);
                     break;
-                case BRAKE_ENGAGED:
+                case BRAKE_ENGAGED: // Parking mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
                     break;
                 case HIGH_BRAKING_MODE:
@@ -73,7 +73,6 @@ public class Rules
         }
 
         switch(currentState) {
-            // SIMPLER STATES
             case BRAKE_DISENGAGED:
                 switch(currentEvent)
                 {
@@ -82,14 +81,20 @@ public class Rules
                         actions.add(Action.SET_RED_LED);
                         actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
                         break;
-                    case BUTTON_PRESSED_SPEED_HIGH:
-                        actions.add(Action.ENGAGE_BRAKE_HIGH_FORCE);
+                    case BUTTON_PRESSED_SPEED_HIGH: // NOTE: high speed, low force
+                        actions.add(Action.ENGAGE_BRAKE_LOW_FORCE);
+                        actions.add(Action.SET_RED_LED);
+                        actions.add(Action.SOUND_BRAKE_ENGAGING);
                         break;
                     case BUTTON_PRESSED_SPEED_MED:
                         actions.add(Action.ENGAGE_BRAKE_MED_FORCE);
+                        actions.add(Action.SET_RED_LED);
+                        actions.add(Action.SOUND_BRAKE_ENGAGING);
                         break;
-                    case BUTTON_PRESSED_SPEED_LOW:
-                        actions.add(Action.ENGAGE_BRAKE_LOW_FORCE);
+                    case BUTTON_PRESSED_SPEED_LOW: // NOTE: low speed, high force
+                        actions.add(Action.ENGAGE_BRAKE_HIGH_FORCE);
+                        actions.add(Action.SET_RED_LED);
+                        actions.add(Action.SOUND_BRAKE_ENGAGING);
                         break;
                 }
                 break;
@@ -121,8 +126,6 @@ public class Rules
                         break;
                 }
                 break;
-
-            // Different "entry points" to the BRAKE_ENGAGING state, based on the vehicle's speed
             case HIGH_BRAKING_MODE:
             case MED_BRAKING_MODE:
             case LOW_BRAKING_MODE:
