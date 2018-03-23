@@ -11,18 +11,28 @@ public class Rules
     /**
      *
      * @param currentState
-     * @return
+     * @return mapping of events to states:
+     *         -the events are what we are "listening" for
+     *         -the states are what we would move into, based on which events occurred
      */
     private static HashMap<Event,State> whatEvents(State currentState)
     {
-        HashMap<Event, State> hm = new HashMap<>();
+        HashMap hm = new HashMap();
+
+        if (currentState == null)
+        {
+            hm.put(Event.INIT_EVENT, null);
+            return hm;
+        }
 
         switch(currentState)
         {
             // SIMPLER STATES
             case BRAKE_DISENGAGED:
-                hm.put(Event.BUTTON_PRESSED, currentState);
-                hm.put(Event.SPEED_EQUAL_TO_ZERO, currentState);
+                hm.put(Event.BUTTON_PRESSED_SPEED_STOP, currentState);
+                hm.put(Event.BUTTON_PRESSED_SPEED_LOW, currentState);
+                hm.put(Event.BUTTON_PRESSED_SPEED_MED, currentState);
+                hm.put(Event.BUTTON_PRESSED_SPEED_HIGH, currentState);
                 break;
             case BRAKE_ENGAGING: // Emergency mode
                 hm.put(Event.TIMER_TICK, currentState);
@@ -40,6 +50,8 @@ public class Rules
                 hm.put(Event.BUTTON_PRESSED, currentState);
                 hm.put(Event.TIMER_TICK, currentState);
                 break;
+            default:
+                break;
         }
 
         return hm;
@@ -49,34 +61,91 @@ public class Rules
      *
      * @param currentEvent
      * @param currentState
-     * @return
+     * @return mapping of (Event, State) to a list of Actions
      */
     private static List<Action> whatActions(Event currentEvent, State currentState)
     {
-        List<Action> actions = new ArrayList<>();
+        List actions = new ArrayList();
+
+        if (currentState == null)
+        {
+            actions.add(Action.SET_BLUE_LED);
+            actions.add(Action.DISENGAGE_BRAKE);
+            return actions;
+        }
 
         switch(currentState) {
             // SIMPLER STATES
             case BRAKE_DISENGAGED:
-                if (currentEvent == Event.BUTTON_PRESSED)
+                switch(currentEvent)
                 {
-
+                    case BUTTON_PRESSED_SPEED_STOP:
+                        actions.add(Action.ENGAGE_BRAKE_FULLY);
+                        actions.add(Action.SET_RED_LED);
+                        actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
+                        break;
+                    case BUTTON_PRESSED_SPEED_HIGH:
+                        actions.add(Action.ENGAGE_BRAKE_HIGH_FORCE);
+                        break;
+                    case BUTTON_PRESSED_SPEED_MED:
+                        actions.add(Action.ENGAGE_BRAKE_MED_FORCE);
+                        break;
+                    case BUTTON_PRESSED_SPEED_LOW:
+                        actions.add(Action.ENGAGE_BRAKE_LOW_FORCE);
+                        break;
                 }
+                break;
             case BRAKE_ENGAGING: // Emergency mode
-                if (currentEvent == Event.BRAKE_FORCE_FULLY_ENGAGED)
+                switch (currentEvent)
                 {
-                    actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
-                    actions.add(Action.STOP_TIMER);
+                    case BRAKE_FORCE_FULLY_ENGAGED:
+                        actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
+                        actions.add(Action.STOP_TIMER);
+                        break;
+                    case TIMER_TICK:
+                        actions.add(Action.INCREASE_BRAKE_FORCE);
+                        break;
+                    case BUTTON_PRESSED:
+                        actions.add(Action.DISENGAGE_BRAKE);
+                        actions.add(Action.SET_BLUE_LED);
+                        actions.add(Action.SOUND_BRAKE_DISENGAGED);
+                        actions.add(Action.STOP_TIMER);
+                        break;
                 }
+                break;
             case BRAKE_ENGAGED:  // Park mode
+                switch (currentEvent)
+                {
+                    case BUTTON_PRESSED:
+                        actions.add(Action.DISENGAGE_BRAKE);
+                        actions.add(Action.SET_BLUE_LED);
+                        actions.add(Action.SOUND_BRAKE_DISENGAGED);
+                        break;
+                }
+                break;
 
             // Different "entry points" to the BRAKE_ENGAGING state, based on the vehicle's speed
             case HIGH_BRAKING_MODE:
             case MED_BRAKING_MODE:
             case LOW_BRAKING_MODE:
+                switch(currentEvent)
+                {
+                    case BUTTON_PRESSED:
+                        actions.add(Action.DISENGAGE_BRAKE);
+                        actions.add(Action.SET_BLUE_LED);
+                        actions.add(Action.SOUND_BRAKE_DISENGAGED);
+                        actions.add(Action.STOP_TIMER);
+                        break;
+                    case TIMER_TICK:
+                        actions.add(Action.INCREASE_BRAKE_FORCE);
+                        break;
+                }
+                break;
+            default:
+                break;
         }
 
-        return null;
+        return actions;
     }
 
 
@@ -87,8 +156,8 @@ public class Rules
         for (State st : State.values())
         {
             System.out.println("\t"+st+": if");
-            HashMap hm = whatEvents(st);
-            hm.forEach((event,state) -> {
+            HashMap eventsToStates = whatEvents(st);
+            eventsToStates.forEach((event,state) -> {
                 List actions = whatActions((Event)event, (State)state);
                 System.out.println("\t\t+ " + event+": then");
                 actions.forEach((action) -> {
