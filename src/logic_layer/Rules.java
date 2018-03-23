@@ -17,44 +17,44 @@ public class Rules
      */
     private static HashMap<Event,State> whatEvents(State currentState)
     {
-        HashMap hm = new HashMap();
+        HashMap eventToState = new HashMap();
 
         if (currentState == null)
         {
-            hm.put(Event.INIT_EVENT, null);
-            return hm;
+            eventToState.put(Event.INIT_EVENT, null);
+            return eventToState;
         }
 
         switch(currentState)
         {
             // SIMPLER STATES
             case BRAKE_DISENGAGED:
-                hm.put(Event.BUTTON_PRESSED_SPEED_STOP, currentState);
-                hm.put(Event.BUTTON_PRESSED_SPEED_LOW, currentState);
-                hm.put(Event.BUTTON_PRESSED_SPEED_MED, currentState);
-                hm.put(Event.BUTTON_PRESSED_SPEED_HIGH, currentState);
+                eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, currentState);
+                eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, currentState);
+                eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, currentState);
+                eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, currentState);
                 break;
             case BRAKE_ENGAGING: // Emergency mode
-                hm.put(Event.TIMER_TICK, currentState);
-                hm.put(Event.BRAKE_FORCE_FULLY_ENGAGED, currentState);
-                hm.put(Event.BUTTON_PRESSED, currentState);
+                eventToState.put(Event.TIMER_TICK, currentState);
+                eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, currentState);
+                eventToState.put(Event.BUTTON_PRESSED, currentState);
                 break;
             case BRAKE_ENGAGED:  // Park mode
-                hm.put(Event.BUTTON_PRESSED, currentState);
+                eventToState.put(Event.BUTTON_PRESSED, currentState);
                 break;
 
             // Different "entry points" to the BRAKE_ENGAGING state, based on the vehicle's speed
             case HIGH_BRAKING_MODE:
             case MED_BRAKING_MODE:
             case LOW_BRAKING_MODE:
-                hm.put(Event.BUTTON_PRESSED, currentState);
-                hm.put(Event.TIMER_TICK, currentState);
+                eventToState.put(Event.BUTTON_PRESSED, currentState);
+                eventToState.put(Event.TIMER_TICK, currentState);
                 break;
             default:
                 break;
         }
 
-        return hm;
+        return eventToState;
     }
 
     /**
