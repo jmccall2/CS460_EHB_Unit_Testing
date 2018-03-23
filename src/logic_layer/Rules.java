@@ -1,5 +1,6 @@
 package logic_layer;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -18,44 +19,26 @@ public class Rules
 
         switch(currentState)
         {
-            // Moving states
-            case MOVING_ENGAGING:
-                hm.put(Event.BUTTON_HELD, State.MOVING_ENGAGING);
-                hm.put(Event.BRAKE_FULLY_ENGAGED, State.MOVING_ENGAGING);
-                hm.put(Event.TIMER_DISPATCH_FORCE, State.MOVING_ENGAGING);
+            // SIMPLER STATES
+            case BRAKE_DISENGAGED:
+                hm.put(Event.BUTTON_PRESSED, currentState);
+                hm.put(Event.SPEED_EQUAL_TO_ZERO, currentState);
                 break;
-            case MOVING_ENGAGED:
-                hm.put(Event.BUTTON_HELD, State.MOVING_ENGAGED);
-                hm.put(Event.SPEED_EQUAL_TO_ZERO, State.MOVING_ENGAGED);
+            case BRAKE_ENGAGING: // Emergency mode
+                hm.put(Event.TIMER_TICK, currentState);
+                hm.put(Event.BRAKE_FORCE_FULLY_ENGAGED, currentState);
+                hm.put(Event.BUTTON_PRESSED, currentState);
                 break;
-            case MOVING_DISENGAGING:
-                hm.put(Event.BRAKE_FULLY_DISENGAGED, State.MOVING_DISENGAGING);
-                hm.put(Event.BUTTON_HELD, State.MOVING_DISENGAGING);
-                break;
-            case MOVING_DISENGAGED:
-                hm.put(Event.BUTTON_HELD, State.MOVING_DISENGAGED);
-                hm.put(Event.SPEED_EQUAL_TO_ZERO, State.MOVING_DISENGAGED);
+            case BRAKE_ENGAGED:  // Park mode
+                hm.put(Event.BUTTON_PRESSED, currentState);
                 break;
 
-                // Parked states
-            case PARKED_ENGAGED:
-                hm.put(Event.BUTTON_PUSHED, State.PARKED_ENGAGED);
-                hm.put(Event.TRANSMISSION_SHIFT_OUT_PARK, State.PARKED_ENGAGED);
-                break;
-            case PARKED_DISENGAGED:
-                hm.put(Event.BUTTON_PUSHED, State.PARKED_DISENGAGED);
-                hm.put(Event.TRANSMISSION_SHIFT_OUT_PARK, State.PARKED_DISENGAGED);
-                break;
-
-                // Stopped states
-            case STOPPED_ENGAGED:
-                hm.put(Event.SPEED_GREATER_THAN_ZERO, State.STOPPED_ENGAGED);
-                hm.put(Event.TRANSMISSION_SHIFT_IN_PARK, State.STOPPED_ENGAGED);
-                hm.put(Event.BUTTON_HELD, State.STOPPED_ENGAGED);
-                break;
-            case STOPPED_DISENGAGED:
-                hm.put(Event.TRANSMISSION_SHIFT_IN_PARK, State.STOPPED_DISENGAGED);
-                hm.put(Event.BUTTON_HELD, State.STOPPED_DISENGAGED);
+            // Different "entry points" to the BRAKE_ENGAGING state, based on the vehicle's speed
+            case HIGH_BRAKING_MODE:
+            case MED_BRAKING_MODE:
+            case LOW_BRAKING_MODE:
+                hm.put(Event.BUTTON_PRESSED, currentState);
+                hm.put(Event.TIMER_TICK, currentState);
                 break;
         }
 
@@ -70,70 +53,27 @@ public class Rules
      */
     private static List<Action> whatActions(Event currentEvent, State currentState)
     {
-        switch(currentState)
-        {
-            // Moving states
-            case MOVING_ENGAGING:
-                if (currentEvent == Event.BUTTON_HELD)
-                    return Arrays.asList(Action.DISENGAGE_BRAKE, Action.SET_RED_LED);
-                else if(currentEvent == Event.BRAKE_FULLY_ENGAGED)
-                    return Arrays.asList(Action.SINGLE_ENGAGED_SOUND_ON, Action.SET_RED_LED);
-                else if(currentEvent == Event.TIMER_DISPATCH_FORCE)
-                    return Arrays.asList(Action.APPLY_BRAKE_FORCE);
+        List<Action> actions = new ArrayList<>();
 
-            case MOVING_ENGAGED:
-                if (currentEvent == Event.BUTTON_HELD)
-                    return Arrays.asList(Action.DISENGAGE_BRAKE,
-                                        Action.ENGAGED_SOUND_OFF);
-                else if(currentEvent == Event.SPEED_EQUAL_TO_ZERO)
-                    return Arrays.asList(Action.NON_ACTION);
+        switch(currentState) {
+            // SIMPLER STATES
+            case BRAKE_DISENGAGED:
+                if (currentEvent == Event.BUTTON_PRESSED)
+                {
 
-            case MOVING_DISENGAGING:
-                if (currentEvent == Event.BRAKE_FULLY_DISENGAGED)
-                    return Arrays.asList(Action.DISENGAGE_SOUND,
-                                        Action.SET_BLUE_LED);
-                else if(currentEvent == Event.BUTTON_HELD)
-                    return Arrays.asList(Action.SET_ORANGE_LED);
+                }
+            case BRAKE_ENGAGING: // Emergency mode
+                if (currentEvent == Event.BRAKE_FORCE_FULLY_ENGAGED)
+                {
+                    actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
+                    actions.add(Action.STOP_TIMER);
+                }
+            case BRAKE_ENGAGED:  // Park mode
 
-            case MOVING_DISENGAGED:
-                if (currentEvent == Event.BUTTON_HELD)
-                    return Arrays.asList(Action.SET_ORANGE_LED);
-                else if(currentEvent == Event.SPEED_EQUAL_TO_ZERO)
-                    return Arrays.asList(Action.NON_ACTION);
-
-            // Parked states
-            case PARKED_ENGAGED:
-                if (currentEvent == Event.BUTTON_PUSHED)
-                    return Arrays.asList(Action.DISENGAGE_BRAKE,
-                                        Action.SET_BLUE_LED);
-                else if(currentEvent == Event.TRANSMISSION_SHIFT_OUT_PARK)
-                    return Arrays.asList(Action.CONTINUOUS_ENGAGED_SOUND_ON);
-            case PARKED_DISENGAGED:
-                if (currentEvent == Event.BUTTON_PUSHED)
-                    return Arrays.asList(Action.ENGAGE_BRAKE,
-                                        Action.SET_RED_LED);
-                else if(currentEvent == Event.TRANSMISSION_SHIFT_OUT_PARK)
-                    return Arrays.asList(Action.NON_ACTION);
-
-
-            // Stopped states
-            case STOPPED_ENGAGED:
-                if(currentEvent == Event.SPEED_GREATER_THAN_ZERO)
-                    return Arrays.asList(Action.NON_ACTION);
-                else if(currentEvent == Event.TRANSMISSION_SHIFT_IN_PARK)
-                    return Arrays.asList(Action.ENGAGED_SOUND_OFF);
-                else if(currentEvent == Event.BUTTON_HELD)
-                    return Arrays.asList(Action.DISENGAGE_BRAKE,
-                                        Action.ENGAGED_SOUND_OFF,
-                                        Action.SET_BLUE_LED);
-
-            case STOPPED_DISENGAGED:
-                if(currentEvent == Event.TRANSMISSION_SHIFT_IN_PARK)
-                    return Arrays.asList(Action.NON_ACTION);
-                else if(currentEvent == Event.BUTTON_HELD)
-                    return Arrays.asList(Action.ENGAGE_BRAKE,
-                                        Action.CONTINUOUS_ENGAGED_SOUND_ON,
-                                        Action.SET_RED_LED);
+            // Different "entry points" to the BRAKE_ENGAGING state, based on the vehicle's speed
+            case HIGH_BRAKING_MODE:
+            case MED_BRAKING_MODE:
+            case LOW_BRAKING_MODE:
         }
 
         return null;
