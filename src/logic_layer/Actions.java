@@ -22,15 +22,15 @@ public class Actions
     void execute(Action action)
     {
         //runs code based on the action enum given
-        if(action == Action.ENGAGE_BRAKE)
+        if(action == Action.ENGAGE_BRAKE_FULLY)
         {
-            //apply current brake pressure
+            //apply current brake pressure 100%
         }
         else if(action == Action.DISENGAGE_BRAKE)
         {
             //set brake pressure to 0
         }
-        else if(action == Action.APPLY_BRAKE_FORCE)
+        else if(action == Action.INCREASE_BRAKE_FORCE)
         {
             //increase brake force here
         }
@@ -38,38 +38,42 @@ public class Actions
         {
             alarm.setColor(ButtonColorTypes.BLUE);
         }
-        else if(action == Action.SET_ORANGE_LED)
-        {
-            alarm.setColor(ButtonColorTypes.ORANGE);
-        }
+//        else if(action == Action.SET_ORANGE_LED)
+//        {
+//            alarm.setColor(ButtonColorTypes.ORANGE);
+//        }
         else if(action == Action.SET_RED_LED)
         {
             alarm.setColor(ButtonColorTypes.RED);
         }
-        else if(action == Action.SINGLE_ENGAGED_SOUND_ON)
+        else if(action == Action.SOUND_BRAKE_FULLY_ENGAGED)
         {
             alarm.play("engaged");
         }
-        else if(action == Action.SINGLE_DISENGAGED_SOUND_ON)
+        else if(action == Action.SOUND_BRAKE_DISENGAGED)
         {
             alarm.play("disengaged");
         }
-        else if(action == Action.ENGAGED_SOUND_OFF)
+        else if(action == Action.SOUND_BRAKE_ENGAGING)
         {
-            //pending sound to play
+            // play sound for disengaging
         }
-        else if(action == Action.DISENGAGED_SOUND_OFF)
-        {
-            //pending sound to play
-        }
-        else if(action == Action.CONTINUOUS_ENGAGED_SOUND_ON)
-        {
-            alarm.play("longA");
-        }
-        else if(action == Action.NON_ACTION)
-        {
-            System.out.println("non-action");
-        }
+//        else if(action == Action.ENGAGED_SOUND_OFF)
+//        {
+//            //pending sound to play
+//        }
+//        else if(action == Action.DISENGAGED_SOUND_OFF)
+//        {
+//            //pending sound to play
+//        }
+//        else if(action == Action.CONTINUOUS_ENGAGED_SOUND_ON)
+//        {
+//            alarm.play("longA");
+//        }
+//        else if(action == Action.NON_ACTION)
+//        {
+//            System.out.println("non-action");
+//        }
         else
         {
             System.out.println("INVALID ACTION");
