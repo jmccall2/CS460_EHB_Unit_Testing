@@ -5,15 +5,43 @@ package logic_layer;
  */
 enum Action
 {
-    // Brake actions
-    ENGAGE_BRAKE,
+    /* Entry point, accounts for:
+       no audio,
+       button light is blue,
+       brake disengaged
+     */
+    INIT_ACTIONS,
+
+    // EHB actions
+    ENGAGE_BRAKE_FULLY,
     DISENGAGE_BRAKE,
-    APPLY_BRAKE_FORCE,
+    ENGAGE_BRAKE_HIGH_FORCE,
+    ENGAGE_BRAKE_MED_FORCE,
+    ENGAGE_BRAKE_LOW_FORCE,
+    INCREASE_BRAKE_FORCE, // increase force by 1 "unit"
 
     // Light alert actions
     SET_BLUE_LED,
-    SET_ORANGE_LED,
     SET_RED_LED,
+
+    // Timer actions
+    START_TIMER,
+    STOP_TIMER,
+
+    // Sound alert actions
+    SOUND_BRAKE_FULLY_ENGAGED,
+    SOUND_BRAKE_ENGAGING,
+    SOUND_BRAKE_DISENGAGED,
+
+
+    /* The following actions will be discontinued after refactoring the logic interfaces */
+    // Brake actions
+    ENGAGE_BRAKE,
+//    DISENGAGE_BRAKE,
+    APPLY_BRAKE_FORCE,
+
+    // old light alert
+    SET_ORANGE_LED,
 
     // Sound alert actions
     /* Should we differentiate between continuous and single sound like this?
