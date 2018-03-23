@@ -6,7 +6,8 @@ import simulator.interfaces.GearInterface;
 import simulator.interfaces.SpeedInterface;
 
 /**
- *
+ * Allows retrieval of the current speed, current gear, and previous gear
+ * of the vehicle.
  */
 public class Motion
 {
@@ -23,44 +24,39 @@ public class Motion
     }
 
     /**
+     * Calls getSpeed() in SpeedInterface, to return the current speed.
      *
-     * @return
+     * @return Current speed of the vehicle in m/s, as a double.
      */
     public double getSpeed()
     {
-        // call getSpeed() from SpeedInterface
-        // return speed in m/s
-
         return SpeedInterface.getSpeed();
     }
 
     /**
+     * Calls getGear() in SpeedInterface, to return the current gear.
+     * Updates the instance variables previousGear and currentGear accordingly.
      *
-     * @return
+     * @return The current gear of the vehicle.
      */
     public GearTypes getCurrentGear()
     {
-        // call getGear() from GearInteface
-        // update currentGear/previousGear
-        // return current gear
+        GearTypes temp = GearInterface.getGear();
 
-        if (currentGear != GearInterface.getGear())
+        if (currentGear != temp)
         {
             previousGear = currentGear;
-            currentGear = GearInterface.getGear();
+            currentGear = temp;
         }
 
         return currentGear;
     }
 
     /**
-     *
-     * @return
+     * @return The last gear the vehicle was in.
      */
     public GearTypes getPreviousGear()
     {
-        // return previousGear
-
         return previousGear;
     }
 
