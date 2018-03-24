@@ -30,7 +30,7 @@ public class Controller
     /**
      * Called 60 times a second by the simulator.
      */
-    private void update()
+    public void update()
     {
         boolean performActions = false;
         List<Action> actionsToPerform = new ArrayList<>();
@@ -51,6 +51,7 @@ public class Controller
 
         if (performActions)
         {
+            System.out.println(" ******** Controller found actions to execute");
             this.currentState = eventsToState.get(eventOccurred);
             for (Action action : actionsToPerform)
             {

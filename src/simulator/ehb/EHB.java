@@ -1,5 +1,7 @@
 package simulator.ehb;
 
+import logic_layer.*;
+
 public class EHB
 {
 //  private BadProfile _profile = new BadProfile();
@@ -11,9 +13,11 @@ public class EHB
 //  private StressTest3 _profile = new StressTest3();
 //  private StressTest4 _profile = new StressTest4();
 //  private StressTest5 _profile = new StressTest5();
+  private Controller ehbController = new Controller();
 
   public void update()
   {
-    _profile.update();
+//    _profile.update();
+    ehbController.update();
   }
 }
