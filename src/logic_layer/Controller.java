@@ -1,8 +1,6 @@
 package logic_layer;
 
-import virtual_layer.Brake;
-import virtual_layer.Button;
-import virtual_layer.Motion;
+import virtual_layer.*;
 
 import java.util.*;
 
@@ -11,12 +9,15 @@ import java.util.*;
  */
 public class Controller
 {
-    private Actions actions = new Actions();
-    // TODO: pass virtual layer objects to events and rules
+    // Instances of the virtual interfaces
+    private Alarm alarm = new Alarm();
     private Brake brake = new Brake();
     private Motion motion = new Motion();
     private Button button = new Button();
-    private Events events = new Events(motion,brake,button);
+
+    // Instances of the logic interfaces
+    private Actions actions = new Actions(brake, alarm);
+    private Events events = new Events(motion, brake, button);
     private Rules rules = new Rules();
 
     private State currentState;
