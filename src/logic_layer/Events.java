@@ -33,7 +33,7 @@ public class Events
 
                 return brakeFullyEngaged();
 
-            case TIMER_TICK:
+            case NON_EVENT:
                 return true;
 
             case BUTTON_PRESSED_SPEED_STOP:

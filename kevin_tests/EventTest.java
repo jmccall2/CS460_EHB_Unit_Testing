@@ -37,7 +37,7 @@ public class EventTest
   @Test
   void test_timer()
   {
-    Assertions.assertEquals(true, _events.didEventOccur(Event.TIMER_TICK));
+    Assertions.assertEquals(true, _events.didEventOccur(Event.NON_EVENT));
 
   }
   @Test
