@@ -7,65 +7,21 @@ import virtual_layer.*;
  */
 public class Events
 {
-    Alarm _alarm = new Alarm();
-    Button _button = new Button();
-    Brake _brake = new Brake();
-    Motion _motion = new Motion();
+    Button _button;
+    Brake _brake;
+    Motion _motion;
+
+    public Events(Motion motion, Brake brake, Button button)
+    {
+        _button = button;
+        _motion = motion;
+        _brake = brake;
+    }
     /**
      *
      * @param event
      * @return
      */
-//    boolean didEventOccur(Event event)
-//    {
-//        //
-//
-//        switch (event)
-//        {
-//            case BUTTON_PUSHED:
-//
-//                return buttonPushed();
-//
-//            case BUTTON_HELD:
-//
-//                return buttonHeld();
-//
-//            case BRAKE_ENGAGED_PARK:
-//                return brakeEngagedPark(true);
-//
-//            case BRAKE_DISENGAGED_PARK:
-//
-//                return brakeEngagedPark(false);
-//
-//            case BRAKE_FULLY_ENGAGED:
-//
-//                return brakeFullyEngaged();
-//            case BRAKE_FULLY_DISENGAGED:
-//
-//                return brakeFullyDisEngaged();
-//
-//            case SPEED_EQUAL_TO_ZERO:
-//
-//                return speedZero();
-//
-//
-//            case SPEED_GREATER_THAN_ZERO:
-//
-//                return !speedZero();
-//
-//            case TRANSMISSION_SHIFT_IN_PARK:
-//
-//                return shiftIntoPark();
-//
-//            case TRANSMISSION_SHIFT_OUT_PARK:
-//
-//                return !shiftIntoPark();
-//
-//        }
-//
-//        return false;
-//    }
-
     boolean didEventOccur(Event event)
     {
 
@@ -77,7 +33,7 @@ public class Events
 
                 return brakeFullyEngaged();
 
-            case TIMER_TICK:
+            case NON_EVENT:
                 return true;
 
             case BUTTON_PRESSED_SPEED_STOP:

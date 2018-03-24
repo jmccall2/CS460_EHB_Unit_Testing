@@ -19,7 +19,6 @@ public class EventTesterEvents
   }
 
   /**
-   *
    * @param event
    * @return
    */
@@ -34,7 +33,7 @@ public class EventTesterEvents
 
         return brakeFullyEngaged();
 
-      case TIMER_TICK:
+      case NON_EVENT:
         return true;
 
       case BUTTON_PRESSED_SPEED_STOP:
@@ -60,8 +59,6 @@ public class EventTesterEvents
         return true;
 
 
-
-
     }
 
     return false;
@@ -74,25 +71,30 @@ public class EventTesterEvents
     switch (mode)
     {
       case 0:
-        return pressed && speed  == 0.0;
+        return pressed && speed == 0.0;
       case 1:
-        return pressed && (speed <= 40.0);
+        return pressed && speed <= 40.0;
 
       case 2:
-        return  pressed && speed > 40.0 && speed < 80.0;
+        return pressed && speed > 40.0 && speed < 80.0;
 
       case 3:
-        return  pressed && speed >= 80.0;
+        return pressed && speed >= 80.0;
 
 
     }
 
     return false;
   }
+
   private boolean brakeFullyEngaged()
   {
     return _brake.isEngaged() && _brake.getPressure() == 100.0;
   }
 
-  private boolean buttonPressed(){return _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;}
+  private boolean buttonPressed()
+  {
+    return _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;
+  }
+
 }
