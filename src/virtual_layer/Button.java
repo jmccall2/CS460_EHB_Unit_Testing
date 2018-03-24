@@ -9,18 +9,18 @@ import simulator.interfaces.ButtonInterface;
  */
 public class Button
 {
-    private double deltaT; // how long the button has been pressed
-    private double currentTime;
-    private double previousTime;
+    private double deltaT;       // how long the button has been pressed
+    private double currentTime;  // current system time, when getStatus() is called
+    private double previousTime; // last system time when getStatus() was called
 
     /**
      * Constructor for a Button object.
      */
     public Button()
     {
-        deltaT = -1;
+        deltaT = 0;
         previousTime = -1;
-        currentTime = System.currentTimeMillis();
+        currentTime = -1;
     }
 
     /**
@@ -31,15 +31,15 @@ public class Button
      */
     public ButtonStatus getStatus()
     {
-        // update time variables
-        previousTime = currentTime;
         currentTime = System.currentTimeMillis();
 
         // calculate deltaT
-        if (!ButtonInterface.isDown()) // button not pressed
+        if (!ButtonInterface.isDown())
             deltaT = 0;
         else
-            deltaT = (currentTime - previousTime) / 1000;
+            deltaT += (currentTime - previousTime) / 1000;
+
+        previousTime = currentTime;
 
         // return status, based on deltaT
         if (deltaT == 0)
