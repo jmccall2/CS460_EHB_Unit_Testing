@@ -24,8 +24,7 @@ public class Controller
 
     public Controller()
     {
-        // is this a safe assumption?
-        currentState = State.BRAKE_DISENGAGED;
+        this.currentState = State.BRAKE_DISENGAGED;
     }
 
     /**
@@ -35,7 +34,7 @@ public class Controller
     {
         boolean performActions = false;
         List<Action> actionsToPerform = new ArrayList<>();
-        Event eventOccurred = Event.NON_EVENT; // TODO: use this or null?
+        Event eventOccurred = Event.NON_EVENT;
         HashMap<Event,State> eventsToState = rules.whatEvents(currentState);
 
         for (Event eventKey : eventsToState.keySet())
@@ -52,7 +51,7 @@ public class Controller
 
         if (performActions)
         {
-            currentState = eventsToState.get(eventOccurred);
+            this.currentState = eventsToState.get(eventOccurred);
             for (Action action : actionsToPerform)
             {
                 actions.execute(action);
