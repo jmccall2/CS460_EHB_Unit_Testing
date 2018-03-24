@@ -18,107 +18,127 @@ public class Events
      * @param event
      * @return
      */
+//    boolean didEventOccur(Event event)
+//    {
+//        //
+//
+//        switch (event)
+//        {
+//            case BUTTON_PUSHED:
+//
+//                return buttonPushed();
+//
+//            case BUTTON_HELD:
+//
+//                return buttonHeld();
+//
+//            case BRAKE_ENGAGED_PARK:
+//                return brakeEngagedPark(true);
+//
+//            case BRAKE_DISENGAGED_PARK:
+//
+//                return brakeEngagedPark(false);
+//
+//            case BRAKE_FULLY_ENGAGED:
+//
+//                return brakeFullyEngaged();
+//            case BRAKE_FULLY_DISENGAGED:
+//
+//                return brakeFullyDisEngaged();
+//
+//            case SPEED_EQUAL_TO_ZERO:
+//
+//                return speedZero();
+//
+//
+//            case SPEED_GREATER_THAN_ZERO:
+//
+//                return !speedZero();
+//
+//            case TRANSMISSION_SHIFT_IN_PARK:
+//
+//                return shiftIntoPark();
+//
+//            case TRANSMISSION_SHIFT_OUT_PARK:
+//
+//                return !shiftIntoPark();
+//
+//        }
+//
+//        return false;
+//    }
+
     boolean didEventOccur(Event event)
     {
-        //
 
         switch (event)
         {
-            case BUTTON_PUSHED:
 
-                return buttonPushed();
 
-            case BUTTON_HELD:
-
-                return buttonHeld();
-
-            case BRAKE_ENGAGED_PARK:
-                return brakeEngagedPark(true);
-
-            case BRAKE_DISENGAGED_PARK:
-
-                return brakeEngagedPark(false);
-
-            case BRAKE_FULLY_ENGAGED:
+            case BRAKE_FORCE_FULLY_ENGAGED:
 
                 return brakeFullyEngaged();
-            case BRAKE_FULLY_DISENGAGED:
 
-                return brakeFullyDisEngaged();
+            case TIMER_TICK:
 
-            case SPEED_EQUAL_TO_ZERO:
+            case BUTTON_PRESSED_SPEED_STOP:
+                return buttonPressedSpeed(0);
 
-                return speedZero();
+            case BUTTON_PRESSED_SPEED_LOW:
+                return buttonPressedSpeed(1);
 
 
-            case SPEED_GREATER_THAN_ZERO:
+            case BUTTON_PRESSED_SPEED_MED:
 
-                return !speedZero();
+                return buttonPressedSpeed(2);
 
-            case TRANSMISSION_SHIFT_IN_PARK:
+            case BUTTON_PRESSED_SPEED_HIGH:
 
-                return shiftIntoPark();
+                return buttonPressedSpeed(3);
 
-            case TRANSMISSION_SHIFT_OUT_PARK:
+            case BUTTON_PRESSED:
 
-                return !shiftIntoPark();
+                return buttonPressed();
+
+            case INIT_EVENT:
+
+
+
 
         }
 
         return false;
     }
 
-    private boolean speedZero()
+    private boolean buttonPressedSpeed(int mode)
     {
-        if(_motion.getSpeed() == 0)
+      boolean pressed = _button.getStatus() == ButtonStatus.LONG_PRESS;
+      double speed = _motion.getSpeed();
+        switch (mode)
         {
-            return true;
+            case 0:
+                return pressed && speed  == 0.0;
+            case 1:
+                return pressed && speed <= 40.0;
+
+            case 2:
+                return  pressed && speed > 40.0 && speed < 80.0;
+
+            case 3:
+                return  pressed && speed >= 80.0;
+
+
         }
+
         return false;
-    }
-    private boolean shiftIntoPark()
-    {
-        if (_motion.getCurrentGear() == GearTypes.PARK && _motion.getPreviousGear() != GearTypes.PARK)
-        {
-            return true;
-        }
-        return false;
-    }
-    private boolean brakeEngagedPark(boolean engaged)
-    {
-        if(engaged)
-        {
-            if (_brake.isEngaged() && _motion.getCurrentGear() == GearTypes.PARK)
-            {
-                return true;
-            }
-            return false;
-        }
-        else
-        {
-            if (!_brake.isEngaged() && _motion.getCurrentGear() == GearTypes.PARK)
-            {
-                return true;
-            }
-            return false;
-        }
-    }
-    private boolean buttonPushed()
-    {
-        return _button.getStatus() == ButtonStatus.SHORT_PRESS;
-    }
-    private boolean buttonHeld()
-    {
-        return _button.getStatus() == ButtonStatus.LONG_PRESS;
     }
     private boolean brakeFullyEngaged()
     {
         return _brake.isEngaged() && _brake.getPressure() == 100.0;
     }
-    private boolean brakeFullyDisEngaged()
-    {
-        return !_brake.isEngaged();
-    }
+
+    private boolean buttonPressed(){return _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;}
+
     /* For unit testing purposes */
     public static void main(String[] args)
     {
