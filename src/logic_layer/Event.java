@@ -9,7 +9,6 @@ public enum Event
     INIT_EVENT, // NOTE may not be necessary
     BUTTON_PRESSED,
     BRAKE_FORCE_FULLY_ENGAGED,
-    TIMER_TICK,
 
     // Variations of BUTTON_PRESSED
     BUTTON_PRESSED_SPEED_STOP, // speed === 0

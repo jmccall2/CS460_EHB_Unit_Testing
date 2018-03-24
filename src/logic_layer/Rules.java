@@ -36,7 +36,7 @@ public class Rules
                 case BRAKE_ENGAGING: // Emergency mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
-                    eventToState.put(Event.TIMER_TICK, State.BRAKE_ENGAGING);
+                    eventToState.put(Event.NON_EVENT, State.BRAKE_ENGAGING);
                     break;
                 case BRAKE_ENGAGED: // Parking mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
@@ -45,7 +45,7 @@ public class Rules
                 case MED_BRAKING_MODE:
                 case LOW_BRAKING_MODE:
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
-                    eventToState.put(Event.TIMER_TICK, State.BRAKE_ENGAGING);
+                    eventToState.put(Event.NON_EVENT, State.BRAKE_ENGAGING);
                     break;
                 default:
                     break;
@@ -105,7 +105,7 @@ public class Rules
                         actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
                         actions.add(Action.STOP_TIMER);
                         break;
-                    case TIMER_TICK:
+                    case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
                         break;
                     case BUTTON_PRESSED:
@@ -137,7 +137,7 @@ public class Rules
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);
                         actions.add(Action.STOP_TIMER);
                         break;
-                    case TIMER_TICK:
+                    case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
                         break;
                 }
