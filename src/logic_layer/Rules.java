@@ -15,7 +15,7 @@ public class Rules
      *         -the events are what we are "listening" for
      *         -the states are what we would move into, based on which events occurred
      */
-    private static HashMap<Event,State> whatEvents(State currentState)
+    protected static HashMap<Event,State> whatEvents(State currentState)
     {
         HashMap eventToState = new HashMap();
 
@@ -61,7 +61,7 @@ public class Rules
      * @param currentState
      * @return mapping of (Event, State) to a list of Actions
      */
-    private static List<Action> whatActions(Event currentEvent, State currentState)
+    protected static List<Action> whatActions(Event currentEvent, State currentState)
     {
         List actions = new ArrayList();
 
