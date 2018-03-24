@@ -13,14 +13,13 @@ public class Actions
     //virtual interfaces that Actions interacts with
     //is passed an instance of brake to reference
     private Brake brake;
+    private Alarm alarm;
 
-    //only Actions refers to alarm so it can be instantiated here
-    Alarm alarm = new Alarm();
-
-    public Actions(Brake brake)
+    public Actions(Brake brake, Alarm alarm)
     {
 
         brake = this.brake;
+        alarm = this.alarm;
 
     }
 
