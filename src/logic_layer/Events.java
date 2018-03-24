@@ -1,6 +1,5 @@
 package logic_layer;
 
-import simulator.interfaces.GearTypes;
 import virtual_layer.*;
 
 /**
@@ -12,7 +11,6 @@ public class Events
     Button _button = new Button();
     Brake _brake = new Brake();
     Motion _motion = new Motion();
-
     /**
      *
      * @param event
@@ -80,6 +78,7 @@ public class Events
                 return brakeFullyEngaged();
 
             case TIMER_TICK:
+                return true;
 
             case BUTTON_PRESSED_SPEED_STOP:
                 return buttonPressedSpeed(0);
@@ -101,6 +100,7 @@ public class Events
                 return buttonPressed();
 
             case INIT_EVENT:
+                return true;
 
 
 
@@ -112,7 +112,7 @@ public class Events
 
     private boolean buttonPressedSpeed(int mode)
     {
-      boolean pressed = _button.getStatus() == ButtonStatus.LONG_PRESS;
+      boolean pressed = _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;
       double speed = _motion.getSpeed();
         switch (mode)
         {

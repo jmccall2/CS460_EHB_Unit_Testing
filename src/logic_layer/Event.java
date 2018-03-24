@@ -3,7 +3,7 @@ package logic_layer;
 /**
  * Based on the SRS control logic diagram
  */
-enum Event
+public enum Event
 {
     /* Entry to the initial state */
     INIT_EVENT, // NOTE may not be necessary
