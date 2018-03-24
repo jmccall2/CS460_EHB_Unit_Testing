@@ -17,26 +17,6 @@ enum Event
     BUTTON_PRESSED_SPEED_MED,  // speed > 40km/h && < 80km/h
     BUTTON_PRESSED_SPEED_HIGH, // speed >= 80km/h
 
+    NON_EVENT, // TODO: might be discontinued; used to initialize events
 
-    /* The following events will be discontinued after refactoring the logic interfaces */
-    // Button events
-    BUTTON_PUSHED,
-    BUTTON_HELD,
-
-    // Brake events
-    BRAKE_ENGAGED_PARK,
-    BRAKE_DISENGAGED_PARK,
-    BRAKE_FULLY_ENGAGED,
-    BRAKE_FULLY_DISENGAGED,
-
-    // Speed events
-    SPEED_EQUAL_TO_ZERO,
-    SPEED_GREATER_THAN_ZERO,
-
-    // Transmission events
-    TRANSMISSION_SHIFT_IN_PARK,
-    TRANSMISSION_SHIFT_OUT_PARK,
-
-    // Timer events
-    TIMER_DISPATCH_FORCE, /* Open to suggestions on how to rephrase this. Event in the SRS diagram is confusing */
 }
