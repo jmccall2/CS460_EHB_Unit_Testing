@@ -35,44 +35,60 @@ public class Actions
             case INIT_ACTIONS:
                 brake.setPressure(0.0);
                 alarm.setColor(ButtonColorTypes.BLUE);
+                break;
 
             case START_TIMER:
+                break;
 
             case STOP_TIMER:
-
-            case ENGAGE_BRAKE_FULLY:
-                brake.setPressure(100.0);
+                break;
 
             case DISENGAGE_BRAKE:
+                System.out.println(brake.getPressure());
                 brake.setPressure(0.0);
+                break;
+
+            case ENGAGE_BRAKE_FULLY:
+                System.out.println(brake.getPressure());
+                brake.setPressure(100.0);
+                break;
 
             case ENGAGE_BRAKE_HIGH_FORCE:
                 brake.setPressure(75.0);
+                break;
 
             case ENGAGE_BRAKE_MED_FORCE:
                 brake.setPressure(50.0);
+                break;
 
             case ENGAGE_BRAKE_LOW_FORCE:
                 brake.setPressure(25.0);
+                break;
 
             case INCREASE_BRAKE_FORCE:
                 double press = brake.getPressure();
                 brake.setPressure(press + 1.0);
+                break;
 
             case SET_BLUE_LED:
                 alarm.setColor(ButtonColorTypes.BLUE);
+                break;
 
             case SET_RED_LED:
                 alarm.setColor(ButtonColorTypes.RED);
+                break;
 
             case SOUND_BRAKE_DISENGAGED:
-                alarm.play("disengaged");
+                alarm.play("disengaging");
+                break;
 
             case SOUND_BRAKE_FULLY_ENGAGED:
-                alarm.play("engaged");
+                alarm.play("engaging");
+                break;
 
             case SOUND_BRAKE_ENGAGING:
-                alarm.play("engaged");
+                alarm.play("engaging");
+                break;
 
             default:
                 System.out.println("INVALID ACTION");
