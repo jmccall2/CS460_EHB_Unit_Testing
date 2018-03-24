@@ -5,7 +5,6 @@ package logic_layer;
  */
 enum State
 {
-    // SIMPLER STATES
     BRAKE_DISENGAGED,
     BRAKE_ENGAGING, // Emergency mode
     BRAKE_ENGAGED,  // Park mode
