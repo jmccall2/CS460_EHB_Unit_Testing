@@ -1,7 +1,7 @@
 package virtual_layer;
 
 /**
- * Created by family on 3/20/18.
+ * Encapsulates the three states the button may be in.
  */
 public enum ButtonStatus
 {

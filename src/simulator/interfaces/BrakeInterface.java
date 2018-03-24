@@ -8,11 +8,14 @@ import simulator.simulation.engine.Message;
  * The brake interface represents the only means by which
  * the EHB can modulate the brake pressure.
  *
- * It exposes one static method:
+ * It exposes two static methods:
  *        setPressure()
+ *        isEngaged()
  */
 public class BrakeInterface
 {
+  private static boolean isEngaged = false;
+
   /**
    * Sets the pressure being applied to the drum brake as a percentage
    * on the range of [0.0, 100.0]. These are hard limits, so going above
@@ -32,6 +35,7 @@ public class BrakeInterface
 //      Set pressure activates the brake now rather than the button being held, to
 // revert remove activate brake message
       Engine.getMessagePump().sendMessage(new Message(SimGlobals.ACTIVATE_BRAKE));
+      isEngaged = true;
 
       Engine.getMessagePump().sendMessage(new Message(SimGlobals.SET_PRESSURE, pressure));
     }
@@ -41,15 +45,18 @@ public class BrakeInterface
 // brake
 
         Engine.getMessagePump().sendMessage(new Message(SimGlobals.DEACTIVATE_BRAKE));
+        isEngaged = false;
+
         Engine.getMessagePump().sendMessage(new Message(SimGlobals.SET_PRESSURE, pressure));
 
       }
   }
 
-  public boolean isEngaged()
+  /**
+   * @return True if the brake is engaged; false otherwise.
+   */
+  public static boolean isEngaged()
   {
-    //
-
-    return false;
+    return isEngaged;
   }
 }
