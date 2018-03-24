@@ -8,6 +8,7 @@ import java.util.*;
 public class Controller
 {
     private Actions actions = new Actions();
+    // TODO: pass virtual layer objects to events and rules
     private Events events = new Events();
     private Rules rules = new Rules();
 
