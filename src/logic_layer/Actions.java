@@ -12,7 +12,6 @@ public class Actions
 
     //virtual interfaces that Actions interacts with
     Alarm alarm = new Alarm();
-    //do we instantiate a new brake object here?
     Brake brake = new Brake();
 
     /**
@@ -21,63 +20,56 @@ public class Actions
      */
     void execute(Action action)
     {
-        //runs code based on the action enum given
-        if(action == Action.ENGAGE_BRAKE_FULLY)
-        {
-            //apply current brake pressure 100%
+
+        //action enums ran through as switch case
+        switch(action) {
+            case INIT_ACTIONS:
+                brake.setPressure(0.0);
+                alarm.setColor(ButtonColorTypes.BLUE);
+
+            case START_TIMER:
+
+            case STOP_TIMER:
+
+            case ENGAGE_BRAKE_FULLY:
+                brake.setPressure(100.0);
+
+            case DISENGAGE_BRAKE:
+                brake.setPressure(0.0);
+
+            case ENGAGE_BRAKE_HIGH_FORCE:
+                brake.setPressure(75.0);
+
+            case ENGAGE_BRAKE_MED_FORCE:
+                brake.setPressure(50.0);
+
+            case ENGAGE_BRAKE_LOW_FORCE:
+                brake.setPressure(25.0);
+
+            case INCREASE_BRAKE_FORCE:
+                double press = brake.getPressure();
+                brake.setPressure(press + 1.0);
+
+            case SET_BLUE_LED:
+                alarm.setColor(ButtonColorTypes.BLUE);
+
+            case SET_RED_LED:
+                alarm.setColor(ButtonColorTypes.RED);
+
+            case SOUND_BRAKE_DISENGAGED:
+                alarm.play("disengaged");
+
+            case SOUND_BRAKE_FULLY_ENGAGED:
+                alarm.play("engaged");
+
+            case SOUND_BRAKE_ENGAGING:
+                alarm.play("engaged");
+
+            default:
+                System.out.println("INVALID ACTION");
+
         }
-        else if(action == Action.DISENGAGE_BRAKE)
-        {
-            //set brake pressure to 0
-        }
-        else if(action == Action.INCREASE_BRAKE_FORCE)
-        {
-            //increase brake force here
-        }
-        else if(action == Action.SET_BLUE_LED)
-        {
-            alarm.setColor(ButtonColorTypes.BLUE);
-        }
-//        else if(action == Action.SET_ORANGE_LED)
-//        {
-//            alarm.setColor(ButtonColorTypes.ORANGE);
-//        }
-        else if(action == Action.SET_RED_LED)
-        {
-            alarm.setColor(ButtonColorTypes.RED);
-        }
-        else if(action == Action.SOUND_BRAKE_FULLY_ENGAGED)
-        {
-            alarm.play("engaged");
-        }
-        else if(action == Action.SOUND_BRAKE_DISENGAGED)
-        {
-            alarm.play("disengaged");
-        }
-        else if(action == Action.SOUND_BRAKE_ENGAGING)
-        {
-            // play sound for disengaging
-        }
-//        else if(action == Action.ENGAGED_SOUND_OFF)
-//        {
-//            //pending sound to play
-//        }
-//        else if(action == Action.DISENGAGED_SOUND_OFF)
-//        {
-//            //pending sound to play
-//        }
-//        else if(action == Action.CONTINUOUS_ENGAGED_SOUND_ON)
-//        {
-//            alarm.play("longA");
-//        }
-//        else if(action == Action.NON_ACTION)
-//        {
-//            System.out.println("non-action");
-//        }
-        else
-        {
-            System.out.println("INVALID ACTION");
-        }
+
     }
 
     /* For unit testing purposes */
