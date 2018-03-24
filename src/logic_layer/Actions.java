@@ -18,8 +18,8 @@ public class Actions
     public Actions(Brake brake, Alarm alarm)
     {
 
-        brake = this.brake;
-        alarm = this.alarm;
+        this.brake = brake;
+        this.alarm = alarm;
 
     }
 
@@ -29,7 +29,6 @@ public class Actions
      */
     void execute(Action action)
     {
-
         //action enums ran through as switch case
         switch(action) {
             case INIT_ACTIONS:
