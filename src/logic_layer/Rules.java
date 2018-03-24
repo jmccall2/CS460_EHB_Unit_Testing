@@ -15,7 +15,7 @@ public class Rules
      *         -the events are what we are "listening" for
      *         -the states are what we would move into, based on which events occurred
      */
-    protected static HashMap<Event,State> whatEvents(State currentState)
+    protected HashMap<Event,State> whatEvents(State currentState)
     {
         HashMap eventToState = new HashMap();
 
@@ -61,7 +61,7 @@ public class Rules
      * @param currentState
      * @return mapping of (Event, State) to a list of Actions
      */
-    protected static List<Action> whatActions(Event currentEvent, State currentState)
+    protected List<Action> whatActions(Event currentEvent, State currentState)
     {
         List actions = new ArrayList();
 
@@ -153,13 +153,14 @@ public class Rules
     /* For unit testing purposes */
     public static void main(String[] args)
     {
+        Rules rules = new Rules();
         System.out.println("(state) -> (event, state) -> (actions)");
         for (State st : State.values())
         {
             System.out.println("\t"+st+": if");
-            HashMap eventsToStates = whatEvents(st);
+            HashMap eventsToStates = rules.whatEvents(st);
             eventsToStates.forEach((event,state) -> {
-                List actions = whatActions((Event)event, (State)state);
+                List actions = rules.whatActions((Event)event, (State)state);
                 System.out.println("\t\t+ " + event+": then");
                 actions.forEach((action) -> {
                     System.out.println("\t\t\t"+action);
