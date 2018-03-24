@@ -1,32 +1,65 @@
 package logic_layer;
 
+import java.util.*;
+
 /**
  *
  */
 public class Controller
 {
+    private Actions actions = new Actions();
+    private Events events = new Events();
+    private Rules rules = new Rules();
+
+    private State currentState;
+
+    public Controller()
+    {
+        // is this a safe assumption?
+        currentState = State.BRAKE_DISENGAGED;
+    }
+
     /**
      * Called 60 times a second by the simulator.
      */
     private void update()
     {
-        // TODO
-        // 1. Call whatEvents() from Rules with currentState
-        //    - use mapping from whatEvents() to know which events to "listen" to
-        //    - use mapping to know which State to move next
-        // 2. Iterate through the events and call didEventOccur() (from Events) on each event
-        //    - as long as we stay in the same state, keep calling didEventOccur() with the same list of events
-        //      for each update() call
-        // 3. When didEventOccur() returns true, call whatActions from Rules
-        //    - then we update the object's current State to the one that corresponds from he mapping in whatEvents()
-        //    - then iterate through all the actions returned by whatActions() and execute them
-        // 4. To execute each action, we must pass them to the execute() method in Actions
-        // 5. Repeat.
+        boolean performActions = false;
+        List<Action> actionsToPerform = new ArrayList<>();
+        Event eventOccurred = Event.NON_EVENT; // TODO: use this or null?
+        HashMap<Event,State> eventsToState = rules.whatEvents(currentState);
+
+        for (Event eventKey : eventsToState.keySet())
+        {
+            performActions = events.didEventOccur(eventKey);
+
+            if (performActions)
+            {
+                actionsToPerform = rules.whatActions(eventKey, currentState);
+                eventOccurred = eventKey;
+                break;
+            }
+        }
+
+        if (performActions)
+        {
+            currentState = eventsToState.get(eventOccurred);
+            for (Action action : actionsToPerform)
+            {
+                actions.execute(action);
+            }
+        }
     }
 
     /* For unit testing purposes */
     public static void main(String[] args)
     {
-        //
+        Controller controller = new Controller();
+
+        // Haven't tested this yet
+        for (int i = 0; i < 1000; i++)
+        {
+            controller.update();
+        }
     }
 }
