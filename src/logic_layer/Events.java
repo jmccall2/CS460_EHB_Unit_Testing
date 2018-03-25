@@ -7,15 +7,19 @@ import virtual_layer.*;
  */
 public class Events
 {
-    Button _button;
-    Brake _brake;
-    Motion _motion;
+    private Button _button;
+    private Brake _brake;
+    private Motion _motion;
+
+    private boolean lastStatus;
 
     public Events(Motion motion, Brake brake, Button button)
     {
         _button = button;
         _motion = motion;
         _brake = brake;
+
+        lastStatus = false;
     }
     /**
      *
@@ -42,7 +46,7 @@ public class Events
                 return buttonPressedSpeed(3);
 
             case BUTTON_PRESSED:
-                return buttonPressed();
+                return buttonReleased();
 
             case NON_EVENT:
                 return true;
@@ -83,8 +87,18 @@ public class Events
         return _brake.isEngaged() && _brake.getPressure() == 100.0;
     }
 
-    /* Maybe this method should be called buttonReleased to avoid confusion */
-    private boolean buttonPressed(){ return _button.getStatus() == ButtonStatus.PRESSED;}
+    private boolean buttonReleased()
+    {
+        boolean down = _button.getStatus() == ButtonStatus.PRESSED;
+
+        if(lastStatus != down)
+        {
+            lastStatus = down;
+            return true;
+        }
+        return false;
+        // return _button.getStatus() == ButtonStatus.PRESSED;
+    }
 
     /* For unit testing purposes */
     public static void main(String[] args)
