@@ -39,6 +39,7 @@ public class Rules
                 case BRAKE_ENGAGING: // Emergency mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
+                    eventToState.put(Event.NON_EVENT, State.BRAKE_ENGAGING);
                     break;
                 case BRAKE_ENGAGED: // Parking mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
@@ -134,11 +135,6 @@ public class Rules
             case LOW_BRAKING_MODE:
                 switch(currentEvent)
                 {
-//                    case BUTTON_PRESSED:
-//                        actions.add(Action.DISENGAGE_BRAKE);
-//                        actions.add(Action.SET_BLUE_LED);
-//                        actions.add(Action.SOUND_BRAKE_DISENGAGED);
-//                        break;
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
                         break;
