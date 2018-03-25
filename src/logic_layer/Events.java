@@ -49,7 +49,6 @@ public class Events
                 return buttonReleased();
 
             case NON_EVENT:
-                return true;
             case INIT_EVENT:
                 return true;
 
