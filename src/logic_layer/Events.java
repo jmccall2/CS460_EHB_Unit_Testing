@@ -58,7 +58,9 @@ public class Events
 
     private boolean buttonPressedSpeed(int mode)
     {
-      boolean pressed = _button.getStatus() == ButtonStatus.PRESSED;
+//      boolean pressed = _button.getStatus() == ButtonStatus.PRESSED;
+//      System.out.println(pressed +"  " + mode );
+        boolean pressed = true;
       double speed = _motion.getSpeed();
         switch (mode)
         {
@@ -82,7 +84,7 @@ public class Events
     }
 
     /* Maybe this method should be called buttonReleased to avoid confusion */
-    private boolean buttonPressed(){ return _button.getStatus() == ButtonStatus.NOT_PRESSED;}
+    private boolean buttonPressed(){ return _button.getStatus() == ButtonStatus.PRESSED;}
 
     /* For unit testing purposes */
     public static void main(String[] args)

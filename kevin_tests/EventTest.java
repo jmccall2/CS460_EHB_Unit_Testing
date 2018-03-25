@@ -43,7 +43,7 @@ public class EventTest
   @Test
   void test_pressed_stopped()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(0.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_STOP));
 
@@ -51,7 +51,7 @@ public class EventTest
   @Test
   void test_pressed_stopped2()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(0.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_STOP));
 
@@ -59,7 +59,7 @@ public class EventTest
   @Test
   void test_pressed_stopped3()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(10.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_STOP));
 
@@ -67,7 +67,7 @@ public class EventTest
   @Test
   void test_pressed_stopped4()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(10.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_STOP));
 
@@ -83,7 +83,7 @@ public class EventTest
   @Test
   void test_pressed_low()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(30.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_LOW));
 
@@ -91,7 +91,7 @@ public class EventTest
   @Test
   void test_pressed_low2()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(30.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_LOW));
 
@@ -99,7 +99,7 @@ public class EventTest
   @Test
   void test_pressed_low3()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(40.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_LOW));
 
@@ -107,7 +107,7 @@ public class EventTest
   @Test
   void test_pressed_low4()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(50.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_LOW));
 
@@ -115,7 +115,7 @@ public class EventTest
   @Test
   void test_pressed_low5()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(50.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_LOW));
 
@@ -132,7 +132,7 @@ public class EventTest
   @Test
   void test_pressed_med()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(41.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_MED));
 
@@ -140,7 +140,7 @@ public class EventTest
   @Test
   void test_pressed_med2()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(79.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_MED));
 
@@ -148,7 +148,7 @@ public class EventTest
   @Test
   void test_pressed_med3()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(60.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_MED));
 
@@ -156,7 +156,7 @@ public class EventTest
   @Test
   void test_pressed_med4()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(100.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_MED));
 
@@ -164,7 +164,7 @@ public class EventTest
   @Test
   void test_pressed_med5()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(30.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_MED));
 
@@ -180,7 +180,7 @@ public class EventTest
   @Test
   void test_pressed_high()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(85.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_HIGH));
 
@@ -188,7 +188,7 @@ public class EventTest
   @Test
   void test_pressed_high2()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(85.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_HIGH));
 
@@ -196,7 +196,7 @@ public class EventTest
   @Test
   void test_pressed_high3()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(80.0);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_HIGH));
 
@@ -204,7 +204,7 @@ public class EventTest
   @Test
   void test_pressed_high4()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(30.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_HIGH));
 
@@ -212,7 +212,7 @@ public class EventTest
   @Test
   void test_pressed_high5()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     _motion.setSpeed(50.0);
     Assertions.assertEquals(false, _events.didEventOccur(Event.BUTTON_PRESSED_SPEED_HIGH));
 
@@ -236,7 +236,7 @@ public class EventTest
 
   void test_pressed2()
   {
-    _button.setStatus(ButtonStatus.SHORT_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED));
 
   }
@@ -244,7 +244,7 @@ public class EventTest
 
   void test_pressed3()
   {
-    _button.setStatus(ButtonStatus.LONG_PRESS);
+    _button.setStatus(ButtonStatus.PRESSED);
     Assertions.assertEquals(true, _events.didEventOccur(Event.BUTTON_PRESSED));
 
   }

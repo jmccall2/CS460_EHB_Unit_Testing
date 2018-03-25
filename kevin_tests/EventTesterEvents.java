@@ -66,7 +66,7 @@ public class EventTesterEvents
 
   private boolean buttonPressedSpeed(int mode)
   {
-    boolean pressed = _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;
+    boolean pressed = _button.getStatus() == ButtonStatus.PRESSED;
     double speed = _motion.getSpeed();
     switch (mode)
     {
@@ -94,7 +94,7 @@ public class EventTesterEvents
 
   private boolean buttonPressed()
   {
-    return _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;
+    return _button.getStatus() == ButtonStatus.PRESSED;
   }
 
 }

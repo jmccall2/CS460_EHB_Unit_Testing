@@ -12,7 +12,7 @@ public class Button
     private double deltaT;       // how long the button has been pressed
     private double currentTime;  // current system time, when getStatus() is called
     private double previousTime; // last system time when getStatus() was called
-
+    private boolean lastStatus;
     /**
      * Constructor for a Button object.
      */
@@ -21,6 +21,8 @@ public class Button
         deltaT = 0;
         previousTime = -1;
         currentTime = -1;
+        lastStatus = false;
+
     }
 
     /**
@@ -44,8 +46,18 @@ public class Button
 //        // return status, based on deltaT
 //        if (deltaT == 0) return ButtonStatus.NOT_PRESSED;
 //        else return ButtonStatus.PRESSED;
-        if (!ButtonInterface.isDown()) return ButtonStatus.NOT_PRESSED;
-        return ButtonStatus.PRESSED;
+//        if (!ButtonInterface.isDown()) return ButtonStatus.NOT_PRESSED;
+//        return ButtonStatus.PRESSED;
+
+        boolean down = ButtonInterface.isDown();
+
+        if(lastStatus != down)
+        {
+          lastStatus = down;
+          return ButtonStatus.PRESSED;
+        }
+        return ButtonStatus.NOT_PRESSED;
+
 
     }
 
