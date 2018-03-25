@@ -48,7 +48,7 @@ public class Actions
                 break;
 
             case ENGAGE_BRAKE_HIGH_FORCE:
-                brake.setPressure(75.0);
+                brake.setPressure(60.0);
                 break;
 
             case ENGAGE_BRAKE_MED_FORCE:
@@ -61,7 +61,7 @@ public class Actions
 
             case INCREASE_BRAKE_FORCE:
                 double press = brake.getPressure();
-                brake.setPressure(press + 1.0);
+                brake.setPressure(press + 0.5);
                 break;
 
             case SET_BLUE_LED:
