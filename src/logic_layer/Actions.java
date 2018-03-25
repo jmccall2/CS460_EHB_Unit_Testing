@@ -29,7 +29,7 @@ public class Actions
      */
     void execute(Action action)
     {
-        System.out.println("*** Actions execute() was called\n    -Brake pressure = " + this.brake.getPressure());
+        //System.out.println("*** Actions execute() was called\n    -Brake pressure = " + this.brake.getPressure());
         //action enums ran through as switch case
         switch(action) {
             case INIT_ACTIONS:

@@ -24,15 +24,10 @@ public class Events
      */
     boolean didEventOccur(Event event)
     {
-        System.out.println(" **** Entered didEventOccur()");
-
         switch (event)
         {
             case BRAKE_FORCE_FULLY_ENGAGED:
                 return brakeFullyEngaged();
-
-            case NON_EVENT:
-                return true;
 
             case BUTTON_PRESSED_SPEED_STOP:
                 return buttonPressedSpeed(0);
@@ -50,12 +45,13 @@ public class Events
             case BUTTON_PRESSED:
                 return buttonPressed();
 
+            case NON_EVENT:
+                return true;
             case INIT_EVENT:
                 return true;
 
             default:
                 System.out.println("Events didEventOccur(): Invalid event!");
-
         }
 
         return false;
