@@ -134,11 +134,11 @@ public class Rules
             case LOW_BRAKING_MODE:
                 switch(currentEvent)
                 {
-                    case BUTTON_PRESSED:
-                        actions.add(Action.DISENGAGE_BRAKE);
-                        actions.add(Action.SET_BLUE_LED);
-                        actions.add(Action.SOUND_BRAKE_DISENGAGED);
-                        break;
+//                    case BUTTON_PRESSED:
+//                        actions.add(Action.DISENGAGE_BRAKE);
+//                        actions.add(Action.SET_BLUE_LED);
+//                        actions.add(Action.SOUND_BRAKE_DISENGAGED);
+//                        break;
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
                         break;
