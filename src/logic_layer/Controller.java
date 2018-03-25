@@ -36,7 +36,7 @@ public class Controller
         List<Action> actionsToPerform = new ArrayList<>();
         Event eventOccurred = Event.NON_EVENT;
         HashMap<Event,State> eventsToState = rules.whatEvents(currentState);
-        System.out.println(currentState);
+        // System.out.println(currentState);
         for (Event eventKey : eventsToState.keySet())
         {
 //          System.out.println(eventKey);
