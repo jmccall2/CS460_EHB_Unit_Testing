@@ -37,12 +37,6 @@ public class Actions
                 alarm.setColor(ButtonColorTypes.BLUE);
                 break;
 
-            case START_TIMER:
-                break;
-
-            case STOP_TIMER:
-                break;
-
             case DISENGAGE_BRAKE:
                 // System.out.println(brake.getPressure());
                 brake.setPressure(0.0);
@@ -91,7 +85,7 @@ public class Actions
                 break;
 
             default:
-                System.out.println("INVALID ACTION");
+                System.out.println("INVALID ACTION = "+action);
 
         }
 
