@@ -11,8 +11,8 @@ import simulator.interfaces.SpeedInterface;
  */
 public class Motion
 {
-    GearTypes currentGear;
-    GearTypes previousGear;
+    private GearTypes currentGear;
+    private GearTypes previousGear;
 
     /**
      * Constructor for a Motion object.

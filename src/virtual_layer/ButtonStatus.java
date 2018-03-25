@@ -1,7 +1,7 @@
 package virtual_layer;
 
 /**
- * Encapsulates the three states the button may be in.
+ * Encapsulates the two states the button may be in.
  */
 public enum ButtonStatus
 {

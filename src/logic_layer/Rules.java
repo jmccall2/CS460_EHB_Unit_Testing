@@ -4,13 +4,19 @@ package logic_layer;
 import java.util.*;
 
 /**
- *
+ * Responsible for encapsulating the rules (or mappings) that define the control logic diagram for the EHB.
+ * There are two main data structures inside of the Rules object’s abstract state, both of which are mappings:
+ *  1. A mapping from (currentState) to (Event, nextState). This data structure is used to check which events
+ *     are in the scope of a given state, and what states to transition to when a particular event occurs
+ *     in a given state.
+ *  2. A mapping from (State, Event) to (List<Action>). This data structure is used to check what actions to take
+ *     when an event occurs in a particular state.
  */
 public class Rules
 {
     /**
      *
-     * @param currentState
+     * @param currentState of the EHB
      * @return mapping of events to states:
      *         -the events are what we are "listening" for
      *         -the states are what we would move into, based on which events occurred
@@ -18,12 +24,6 @@ public class Rules
     protected HashMap<Event,State> whatEvents(State currentState)
     {
         HashMap eventToState = new HashMap();
-
-        if (currentState == null)
-        {
-            eventToState.put(Event.INIT_EVENT, State.BRAKE_DISENGAGED);
-        }
-        else {
 
             switch (currentState) {
                 case BRAKE_DISENGAGED:
@@ -37,31 +37,30 @@ public class Rules
 
                     break;
                 case BRAKE_ENGAGING: // Emergency mode
-                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
+                    eventToState.put(Event.BUTTON_RELEASED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
                     eventToState.put(Event.NON_EVENT, State.BRAKE_ENGAGING);
                     break;
                 case BRAKE_ENGAGED: // Parking mode
-                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
+                    eventToState.put(Event.BUTTON_RELEASED, State.BRAKE_DISENGAGED);
                     break;
                 case HIGH_BRAKING_MODE:
                 case MED_BRAKING_MODE:
                 case LOW_BRAKING_MODE:
-                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
+                    eventToState.put(Event.BUTTON_RELEASED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.NON_EVENT, State.BRAKE_ENGAGING);
                     break;
                 default:
                     break;
             }
-        }
 
         return eventToState;
     }
 
     /**
      *
-     * @param currentEvent
-     * @param currentState
+     * @param currentEvent that just occurred
+     * @param currentState of the EHB
      * @return mapping of (Event, State) to a list of Actions
      */
     protected List<Action> whatActions(Event currentEvent, State currentState)
@@ -113,7 +112,7 @@ public class Rules
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
                         break;
-                    case BUTTON_PRESSED:
+                    case BUTTON_RELEASED:
                         actions.add(Action.DISENGAGE_BRAKE);
                         actions.add(Action.SET_BLUE_LED);
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);
@@ -123,7 +122,7 @@ public class Rules
             case BRAKE_ENGAGED:  // Park mode
                 switch (currentEvent)
                 {
-                    case BUTTON_PRESSED:
+                    case BUTTON_RELEASED:
                         actions.add(Action.DISENGAGE_BRAKE);
                         actions.add(Action.SET_BLUE_LED);
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);

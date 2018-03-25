@@ -5,32 +5,37 @@ import virtual_layer.Alarm;
 import virtual_layer.Brake;
 
 /**
- *
+ * Provides the functionality to perform an action through its execute() method.
+ * Acts as an interface between the Controller on the control logic layer and the virtual components
+ * that contain setters on the virtual layer.
  */
 public class Actions
 {
 
-    //virtual interfaces that Actions interacts with
-    //is passed an instance of brake to reference
+    // References to the virtual components
     private Brake brake;
     private Alarm alarm;
 
+    /**
+     * Constructor
+     *
+     * @param brake virtual component initialized by parent
+     * @param alarm virtual component initialized by parent
+     */
     public Actions(Brake brake, Alarm alarm)
     {
-
         this.brake = brake;
         this.alarm = alarm;
-
     }
 
     /**
+     * Given a value from the Action enum and the current state, we perform said action by interfacing with our
+     * virtual components, which in turn interact with the drivers
      *
-     * @param action
+     * @param action the action to execute
      */
     void execute(Action action)
     {
-        //System.out.println("*** Actions execute() was called\n    -Brake pressure = " + this.brake.getPressure());
-        //action enums ran through as switch case
         switch(action) {
             case INIT_ACTIONS:
                 brake.setPressure(0.0);
@@ -38,12 +43,10 @@ public class Actions
                 break;
 
             case DISENGAGE_BRAKE:
-                // System.out.println(brake.getPressure());
                 brake.setPressure(0.0);
                 break;
 
             case ENGAGE_BRAKE_FULLY:
-                // System.out.println(brake.getPressure());
                 brake.setPressure(100.0);
                 break;
 
