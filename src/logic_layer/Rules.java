@@ -33,6 +33,7 @@ public class Rules
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
                     // NOTE: High speed, low braking force
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.LOW_BRAKING_MODE);
+                    break;
                 case BRAKE_ENGAGING: // Emergency mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
