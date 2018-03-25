@@ -27,23 +27,18 @@ public class Rules
 
             switch (currentState) {
                 case BRAKE_DISENGAGED:
-//                    eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, State.BRAKE_ENGAGED);
-//                    // NOTE: Slow speed, high braking force
-//                    eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, State.HIGH_BRAKING_MODE);
-//                    eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
-//                    // NOTE: High speed, low braking force
-//                    eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.LOW_BRAKING_MODE);
-                    eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_ENGAGING);
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, State.BRAKE_ENGAGED);
+                    // NOTE: Slow speed, high braking force
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, State.HIGH_BRAKING_MODE);
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
+                    // NOTE: High speed, low braking force
+                    eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.LOW_BRAKING_MODE);
                     eventToState.put(Event.NON_EVENT, State.BRAKE_DISENGAGED);
 
                     break;
                 case BRAKE_ENGAGING: // Emergency mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
                     eventToState.put(Event.BRAKE_FORCE_FULLY_ENGAGED, State.BRAKE_ENGAGED);
-                    eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.HIGH_BRAKING_MODE);
-                    eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
-                    eventToState.put(Event.BUTTON_PRESSED_SPEED_LOW, State.LOW_BRAKING_MODE);
-                    eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, State.BRAKE_ENGAGED);
                     break;
                 case BRAKE_ENGAGED: // Parking mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
