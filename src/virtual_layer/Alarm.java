@@ -70,11 +70,11 @@ public class Alarm
         // check value of currentState
         // call play() in ButtonInterface with appropriate argument
 
-        if(currentState == "engaging")
+        if(currentState.equals("engaging"))
         {
             ButtonInterface.play(ButtonSoundTypes.ENGAGED);
         }
-        else if (currentState == "disengaging")
+        else if (currentState.equals("disengaging"))
         {
             ButtonInterface.play(ButtonSoundTypes.DISENGAGED);
         }
