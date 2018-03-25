@@ -33,6 +33,7 @@ public class Rules
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_MED, State.MED_BRAKING_MODE);
                     // NOTE: High speed, low braking force
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_HIGH, State.LOW_BRAKING_MODE);
+                    eventToState.put(Event.NON_EVENT, State.BRAKE_DISENGAGED);
                     break;
                 case BRAKE_ENGAGING: // Emergency mode
                     eventToState.put(Event.BUTTON_PRESSED, State.BRAKE_DISENGAGED);
@@ -97,6 +98,9 @@ public class Rules
                         actions.add(Action.SET_RED_LED);
                         actions.add(Action.SOUND_BRAKE_ENGAGING);
                         break;
+                    default:
+                        actions.add(Action.INIT_ACTIONS);
+
                 }
                 break;
             case BRAKE_ENGAGING: // Emergency mode
@@ -104,7 +108,6 @@ public class Rules
                 {
                     case BRAKE_FORCE_FULLY_ENGAGED:
                         actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
-                        actions.add(Action.STOP_TIMER);
                         break;
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
@@ -113,7 +116,6 @@ public class Rules
                         actions.add(Action.DISENGAGE_BRAKE);
                         actions.add(Action.SET_BLUE_LED);
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);
-                        actions.add(Action.STOP_TIMER);
                         break;
                 }
                 break;
@@ -136,7 +138,6 @@ public class Rules
                         actions.add(Action.DISENGAGE_BRAKE);
                         actions.add(Action.SET_BLUE_LED);
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);
-                        actions.add(Action.STOP_TIMER);
                         break;
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
