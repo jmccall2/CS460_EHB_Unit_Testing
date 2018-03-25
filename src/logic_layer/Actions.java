@@ -44,12 +44,12 @@ public class Actions
                 break;
 
             case DISENGAGE_BRAKE:
-                System.out.println(brake.getPressure());
+                // System.out.println(brake.getPressure());
                 brake.setPressure(0.0);
                 break;
 
             case ENGAGE_BRAKE_FULLY:
-                System.out.println(brake.getPressure());
+                // System.out.println(brake.getPressure());
                 brake.setPressure(100.0);
                 break;
 
