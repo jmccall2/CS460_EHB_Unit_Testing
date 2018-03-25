@@ -27,27 +27,26 @@ public class Button
      * Updates the time instance variables, calculates deltaT between them,
      * and returns a ButtonStatus accordingly.
      *
-     * @return Either LONG_PRESS, SHORT_PRESS, or NOT_PRESSED.
+     * @return PRESSED or NOT_PRESSED.
      */
     public ButtonStatus getStatus()
     {
-        currentTime = System.currentTimeMillis();
+//        currentTime = System.currentTimeMillis();
+//
+//        // calculate deltaT
+//        if (!ButtonInterface.isDown())
+//            deltaT = 0;
+//        else
+//            deltaT += (currentTime - previousTime) / 1000;
+//
+//        previousTime = currentTime;
+//
+//        // return status, based on deltaT
+//        if (deltaT == 0) return ButtonStatus.NOT_PRESSED;
+//        else return ButtonStatus.PRESSED;
+        if (!ButtonInterface.isDown()) return ButtonStatus.NOT_PRESSED;
+        return ButtonStatus.PRESSED;
 
-        // calculate deltaT
-        if (!ButtonInterface.isDown())
-            deltaT = 0;
-        else
-            deltaT += (currentTime - previousTime) / 1000;
-
-        previousTime = currentTime;
-
-        // return status, based on deltaT
-        if (deltaT == 0)
-            return ButtonStatus.NOT_PRESSED;
-        else if (0 < deltaT && deltaT < 2 )
-            return ButtonStatus.SHORT_PRESS;
-        else
-            return ButtonStatus.LONG_PRESS;
     }
 
     /* For unit testing purposes */

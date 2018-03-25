@@ -35,7 +35,6 @@ public class Events
             case BUTTON_PRESSED_SPEED_LOW:
                 return buttonPressedSpeed(1);
 
-
             case BUTTON_PRESSED_SPEED_MED:
                 return buttonPressedSpeed(2);
 
@@ -59,7 +58,7 @@ public class Events
 
     private boolean buttonPressedSpeed(int mode)
     {
-      boolean pressed = _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;
+      boolean pressed = _button.getStatus() == ButtonStatus.PRESSED;
       double speed = _motion.getSpeed();
         switch (mode)
         {
@@ -73,8 +72,6 @@ public class Events
 
             case 3:
                 return  pressed && speed >= 80.0;
-
-
         }
 
         return false;
@@ -84,7 +81,8 @@ public class Events
         return _brake.isEngaged() && _brake.getPressure() == 100.0;
     }
 
-    private boolean buttonPressed(){return _button.getStatus() == ButtonStatus.LONG_PRESS || _button.getStatus() == ButtonStatus.SHORT_PRESS;}
+    /* Maybe this method should be called buttonReleased to avoid confusion */
+    private boolean buttonPressed(){ return _button.getStatus() == ButtonStatus.NOT_PRESSED;}
 
     /* For unit testing purposes */
     public static void main(String[] args)

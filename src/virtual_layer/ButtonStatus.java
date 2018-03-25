@@ -5,7 +5,6 @@ package virtual_layer;
  */
 public enum ButtonStatus
 {
-        LONG_PRESS,
-        SHORT_PRESS,
+        PRESSED,
         NOT_PRESSED
 }
