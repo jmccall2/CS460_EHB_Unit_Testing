@@ -398,6 +398,7 @@ public class Car extends RenderEntity
                 case SimGlobals.RESET_SIM:
                     _simulationOn = false;
                     _simIsActive = false;
+                    _isActive = false;
             }
         }
     }
