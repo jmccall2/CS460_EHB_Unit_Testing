@@ -145,6 +145,7 @@ public class ApplicationEntryPoint implements PulseEntity{
         {
           _ehb.update();
         }
+        if(_car.running()) _ehb.update();
         if(_init)_gui.setInitColor();
         _init = false;
         double currCarY = _car.getLocationY();

@@ -5,7 +5,7 @@ import java.util.*;
 
 /**
  * Responsible for encapsulating the rules (or mappings) that define the control logic diagram for the EHB.
- * There are two main data structures inside of the Rules objectâ€™s abstract state, both of which are mappings:
+ * There are two main data structures inside of the Rules object’s abstract state, both of which are mappings:
  *  1. A mapping from (currentState) to (Event, nextState). This data structure is used to check which events
  *     are in the scope of a given state, and what states to transition to when a particular event occurs
  *     in a given state.
@@ -23,7 +23,7 @@ public class Rules
      */
     protected HashMap<Event,State> whatEvents(State currentState)
     {
-        HashMap<Event,State> eventToState = new HashMap<Event,State>();
+        HashMap eventToState = new HashMap();
 
             switch (currentState) {
                 case BRAKE_DISENGAGED:
@@ -65,7 +65,7 @@ public class Rules
      */
     protected List<Action> whatActions(Event currentEvent, State currentState)
     {
-        List<Action> actions = new ArrayList<Action>();
+        List actions = new ArrayList();
 
         if (currentState == null)
         {
@@ -117,8 +117,6 @@ public class Rules
                         actions.add(Action.SET_BLUE_LED);
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);
                         break;
-                    default:
-                      break;
                 }
                 break;
             case BRAKE_ENGAGED:  // Park mode
@@ -129,8 +127,6 @@ public class Rules
                         actions.add(Action.SET_BLUE_LED);
                         actions.add(Action.SOUND_BRAKE_DISENGAGED);
                         break;
-                    default:
-                      break;
                 }
                 break;
             case HIGH_BRAKING_MODE:
@@ -141,8 +137,6 @@ public class Rules
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
                         break;
-                    default:
-                      break;
                 }
                 break;
             default:
@@ -161,9 +155,9 @@ public class Rules
         for (State st : State.values())
         {
             System.out.println("\t"+st+": if");
-            HashMap<Event, State> eventsToStates = rules.whatEvents(st);
+            HashMap eventsToStates = rules.whatEvents(st);
             eventsToStates.forEach((event,state) -> {
-                List<Action> actions = rules.whatActions((Event)event, (State)state);
+                List actions = rules.whatActions((Event)event, (State)state);
                 System.out.println("\t\t+ " + event+": then");
                 actions.forEach((action) -> {
                     System.out.println("\t\t\t"+action);
