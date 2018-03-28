@@ -25,7 +25,7 @@ public class Controller
     private Button button = new Button();
 
     // Instances of the logic interfaces
-    private Actions actions = new Actions(brake, alarm);
+    private Actions actions = new Actions(brake, alarm, motion);
     private Events events = new Events(motion, brake, button);
     private Rules rules = new Rules();
 
