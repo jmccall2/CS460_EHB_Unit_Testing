@@ -69,7 +69,7 @@ public class Actions
                 // Uncomment the next two lines for the original code from the other team
                 //double press = brake.getPressure();
                 //brake.setPressure(press + 0.5);
-                double speed = motion.getSpeed();
+                double speed = Math.abs(motion.getSpeed());
                 double min = (speed > 10) ? 75 :
                         (speed > 5) ? 80 : 100;
                 brake.setPressure(Math.min(min, ((140 - speed) / 140.0) * 100.0));
