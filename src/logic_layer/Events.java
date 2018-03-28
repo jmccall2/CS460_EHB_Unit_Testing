@@ -84,7 +84,7 @@ public class Events
     private boolean buttonPressedSpeed(int mode)
     {
         boolean pressed = _button.getStatus() == ButtonStatus.PRESSED;
-        double speed = _motion.getSpeed()/0.448;
+        double speed = _motion.getSpeed()/3.6;
         switch (mode)
         {
             case 0:

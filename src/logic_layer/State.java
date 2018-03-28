@@ -3,7 +3,7 @@ package logic_layer;
 /**
  * Based on the SRS control logic diagram
  */
-enum State
+public enum State
 {
     BRAKE_DISENGAGED,
     BRAKE_ENGAGING, // Emergency mode

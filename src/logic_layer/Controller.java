@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import demo.DemoVisual;
 import virtual_layer.Alarm;
 import virtual_layer.Brake;
 import virtual_layer.Button;
@@ -31,16 +32,16 @@ public class Controller
 
     // The current State of the button
     private State currentState;
-    private Event lastEvent;
     int counter = 0;
-    int counter2 = 0;
 
     /**
      * Constructor
      */
     public Controller()
     {
+        DemoVisual.demoPopup(); // Here only for demo.
         this.currentState = State.BRAKE_DISENGAGED;
+        DemoVisual.refresh(this.currentState); // Here only for demo.
     }
 
     /**
@@ -67,29 +68,8 @@ public class Controller
 
         if (performActions)
         {
-            if(lastEvent == Event.BUTTON_PRESSED_SPEED_STOP && counter2 == 0)
-            {
-              counter2 ++;
-              if(actionsToPerform.contains(Action.SOUND_BRAKE_DISENGAGED))
-              {
-                actionsToPerform.remove(Action.SOUND_BRAKE_DISENGAGED);
-              }
-            }
-            else if(lastEvent == Event.BUTTON_PRESSED_SPEED_STOP && counter2 == 1)
-            {
-              counter2 = 0;
-            }
-            lastEvent = eventOccurred;
             this.currentState = eventsToState.get(eventOccurred);
-            if(actionsToPerform.contains(Action.SOUND_BRAKE_ENGAGING))
-            {
-              counter ++;
-            }
-            if(counter == 2 && (actionsToPerform.contains(Action.SOUND_BRAKE_ENGAGING)))
-            {
-              counter = 0;
-              actionsToPerform.remove(Action.SOUND_BRAKE_ENGAGING);
-            }
+            DemoVisual.refresh(this.currentState); // Here only for demo.
             for (Action action : actionsToPerform)
             {
                 actions.execute(action);

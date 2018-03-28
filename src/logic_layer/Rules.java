@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Responsible for encapsulating the rules (or mappings) that define the control logic diagram for the EHB.
- * There are two main data structures inside of the Rules object?s abstract state, both of which are mappings:
+ * There are two main data structures inside of the Rules objects abstract state, both of which are mappings:
  *  1. A mapping from (currentState) to (Event, nextState). This data structure is used to check which events
  *     are in the scope of a given state, and what states to transition to when a particular event occurs
  *     in a given state.
@@ -83,7 +83,7 @@ public class Rules
                     case BUTTON_PRESSED_SPEED_STOP:
                         actions.add(Action.ENGAGE_BRAKE_FULLY);
                         actions.add(Action.SET_RED_LED);
-                        actions.add(Action.SOUND_BRAKE_ENGAGING);
+                        actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
                         break;
                     case BUTTON_PRESSED_SPEED_HIGH: // NOTE: high speed, low force
                         actions.add(Action.ENGAGE_BRAKE_LOW_FORCE);
@@ -109,6 +109,7 @@ public class Rules
                 switch (currentEvent)
                 {
                     case BRAKE_FORCE_FULLY_ENGAGED:
+                        actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
                         break;
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
