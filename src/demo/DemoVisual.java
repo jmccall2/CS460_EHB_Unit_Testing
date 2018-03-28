@@ -22,12 +22,14 @@ public class DemoVisual
     private static State _currState = null;
     private static State _power = null;
     private static List<State> _powerLevels = Arrays.asList(State.LOW_BRAKING_MODE, State.MED_BRAKING_MODE, State.HIGH_BRAKING_MODE);
+    private static Stage _newState = null;
 
     public static void demoPopup()
     {
         try
         {
-            Stage newStage = new Stage();
+            if(_newState != null) _newState.close();
+            _newState = new Stage();
             Image img = (new Image(DemoVisual.class.getResourceAsStream("/demo/logic-diagram-new-v3-1.png")));
             _diagram = new ImageView(img);
             _diagram.setFitHeight(700);
@@ -58,8 +60,8 @@ public class DemoVisual
             _diagram.toBack();
             _sp.getChildren().addAll(lowMode, medMode, highMode, emergencyMode, disengagedMode, parkedMode);
             Scene scene = new Scene(_sp);
-            newStage.setScene(scene);
-            newStage.show();
+            _newState.setScene(scene);
+            _newState.show();
         } catch (Exception e)
         {
             e.printStackTrace();
