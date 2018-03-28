@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Responsible for encapsulating the rules (or mappings) that define the control logic diagram for the EHB.
- * There are two main data structures inside of the Rules object’s abstract state, both of which are mappings:
+ * There are two main data structures inside of the Rules object?s abstract state, both of which are mappings:
  *  1. A mapping from (currentState) to (Event, nextState). This data structure is used to check which events
  *     are in the scope of a given state, and what states to transition to when a particular event occurs
  *     in a given state.

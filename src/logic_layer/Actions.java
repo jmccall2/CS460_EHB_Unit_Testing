@@ -3,6 +3,7 @@ package logic_layer;
 import simulator.interfaces.ButtonColorTypes;
 import virtual_layer.Alarm;
 import virtual_layer.Brake;
+import virtual_layer.Motion;
 
 /**
  * Provides the functionality to perform an action through its execute() method.
@@ -15,6 +16,7 @@ public class Actions
     // References to the virtual components
     private Brake brake;
     private Alarm alarm;
+    private Motion motion;
 
     /**
      * Constructor
@@ -22,10 +24,11 @@ public class Actions
      * @param brake virtual component initialized by parent
      * @param alarm virtual component initialized by parent
      */
-    public Actions(Brake brake, Alarm alarm)
+    public Actions(Brake brake, Alarm alarm, Motion motion)
     {
         this.brake = brake;
         this.alarm = alarm;
+        this.motion = motion;
     }
 
     /**
@@ -63,8 +66,13 @@ public class Actions
                 break;
 
             case INCREASE_BRAKE_FORCE:
-                double press = brake.getPressure();
-                brake.setPressure(press + 0.5);
+                // Uncomment the next two lines for the original code from the other team
+                //double press = brake.getPressure();
+                //brake.setPressure(press + 0.5);
+                double speed = motion.getSpeed();
+                double min = (speed > 10) ? 75 :
+                        (speed > 5) ? 80 : 100;
+                brake.setPressure(Math.min(min, ((140 - speed) / 140.0) * 100.0));
                 break;
 
             case SET_BLUE_LED:
