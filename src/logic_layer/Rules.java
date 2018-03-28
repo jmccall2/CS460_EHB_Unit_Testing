@@ -83,7 +83,7 @@ public class Rules
                     case BUTTON_PRESSED_SPEED_STOP:
                         actions.add(Action.ENGAGE_BRAKE_FULLY);
                         actions.add(Action.SET_RED_LED);
-                        actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
+                        actions.add(Action.SOUND_BRAKE_ENGAGING);
                         break;
                     case BUTTON_PRESSED_SPEED_HIGH: // NOTE: high speed, low force
                         actions.add(Action.ENGAGE_BRAKE_LOW_FORCE);
