@@ -109,7 +109,7 @@ public class Rules
                 switch (currentEvent)
                 {
                     case BRAKE_FORCE_FULLY_ENGAGED:
-                        actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
+                        //actions.add(Action.SOUND_BRAKE_FULLY_ENGAGED);
                         break;
                     case NON_EVENT:
                         actions.add(Action.INCREASE_BRAKE_FORCE);
