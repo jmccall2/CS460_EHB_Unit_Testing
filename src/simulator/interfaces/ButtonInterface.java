@@ -83,15 +83,18 @@ public class ButtonInterface
                 case SimGlobals.IS_DOWN:
                     _isDown = true;
                     _isPressed = false;
+                    //System.out.println("is down");
                     break;
                 case SimGlobals.IS_UP:
                     _isDown = false;
                     _isPressed = false;
+                    //System.out.println("is up");
                     break;
 //                    Changed to revert
                 case SimGlobals.IS_PRESSED:
                     _isDown = true;
                     _isPressed = true;
+                    //System.out.println("pressed");
                     break;
             }
         }

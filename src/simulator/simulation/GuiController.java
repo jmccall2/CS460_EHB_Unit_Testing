@@ -5,29 +5,29 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.event.ActionEvent;
-import simulator.interfaces.ButtonColorTypes;
-import simulator.interfaces.GearTypes;
-import java.lang.Math;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import simulator.interfaces.ButtonColorTypes;
+import simulator.interfaces.GearTypes;
+import simulator.interfaces.SpeedInterface;
 import simulator.simulation.engine.Engine;
 import simulator.simulation.engine.Message;
 import simulator.simulation.engine.MessageHandler;
 import simulator.simulation.engine.Singleton;
-import simulator.interfaces.SpeedInterface;
 
 /**
  * Controller for main GUI.
@@ -209,7 +209,6 @@ public class GuiController implements Initializable
             _handBrake.setText("Activate Brake");
             Engine.getMessagePump().sendMessage(new Message(SimGlobals.IS_UP));
             _previousState = !_previousState;
-
           }
 
 

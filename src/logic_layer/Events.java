@@ -1,6 +1,9 @@
 package logic_layer;
 
-import virtual_layer.*;
+import virtual_layer.Brake;
+import virtual_layer.Button;
+import virtual_layer.ButtonStatus;
+import virtual_layer.Motion;
 
 /**
  * Provides the functionality to check if an event has occurred through its didEventOccur() method.
@@ -81,19 +84,17 @@ public class Events
     private boolean buttonPressedSpeed(int mode)
     {
         boolean pressed = _button.getStatus() == ButtonStatus.PRESSED;
-        double speed = _motion.getSpeed();
+        double speed = _motion.getSpeed()/0.448;
         switch (mode)
         {
             case 0:
                 return pressed && speed  == 0.0;
             case 1:
-                return pressed && speed <= 40.0;
-
+                return pressed && speed <= 40;
             case 2:
-                return  pressed && speed > 40.0 && speed < 80.0;
-
+                return  pressed && speed > 40 && speed < 80;
             case 3:
-                return  pressed && speed >= 80.0;
+                return  pressed && speed >= 80;
         }
 
         return false;

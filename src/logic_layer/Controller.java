@@ -1,8 +1,13 @@
 package logic_layer;
 
-import virtual_layer.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 
-import java.util.*;
+import virtual_layer.Alarm;
+import virtual_layer.Brake;
+import virtual_layer.Button;
+import virtual_layer.Motion;
 
 /**
  * Responsible for driving all logic that happens at the control logic level.
@@ -43,8 +48,8 @@ public class Controller
         boolean performActions = false;
         List<Action> actionsToPerform = new ArrayList<>();
         Event eventOccurred = Event.NON_EVENT;
-        HashMap<Event,State> eventsToState = rules.whatEvents(currentState);
-
+        LinkedHashMap<Event,State> eventsToState = rules.whatEvents(currentState);
+        
         for (Event eventKey : eventsToState.keySet())
         {
             performActions = events.didEventOccur(eventKey);

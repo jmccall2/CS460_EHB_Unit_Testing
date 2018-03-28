@@ -1,7 +1,10 @@
 package logic_layer;
 
 // import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * Responsible for encapsulating the rules (or mappings) that define the control logic diagram for the EHB.
@@ -21,10 +24,9 @@ public class Rules
      *         -the events are what we are "listening" for
      *         -the states are what we would move into, based on which events occurred
      */
-    protected HashMap<Event,State> whatEvents(State currentState)
+    protected LinkedHashMap<Event,State> whatEvents(State currentState)
     {
-        HashMap eventToState = new HashMap();
-
+        LinkedHashMap eventToState = new LinkedHashMap();
             switch (currentState) {
                 case BRAKE_DISENGAGED:
                     eventToState.put(Event.BUTTON_PRESSED_SPEED_STOP, State.BRAKE_ENGAGED);

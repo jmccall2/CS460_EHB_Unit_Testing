@@ -1,12 +1,16 @@
 package simulator.simulation;
 
+import java.util.HashMap;
+
+import javafx.scene.paint.Color;
 import simulator.interfaces.GearInterface;
 import simulator.interfaces.GearTypes;
 import simulator.interfaces.SpeedInterface;
-import javafx.scene.paint.Color;
-import simulator.simulation.engine.*;
-
-import java.util.HashMap;
+import simulator.simulation.engine.Animation;
+import simulator.simulation.engine.Engine;
+import simulator.simulation.engine.Message;
+import simulator.simulation.engine.MessageHandler;
+import simulator.simulation.engine.RenderEntity;
 
 /**
  * Main actor in the world.
