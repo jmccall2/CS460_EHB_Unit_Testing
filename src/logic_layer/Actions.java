@@ -67,12 +67,13 @@ public class Actions
 
             case INCREASE_BRAKE_FORCE:
                 // Uncomment the next two lines for the original code from the other team
-                //double press = brake.getPressure();
+                double press = brake.getPressure();
                 //brake.setPressure(press + 0.5);
-                double speed = Math.abs(motion.getSpeed());
+                double speed = Math.abs(motion.getSpeed()) * 2.2; // Convert
                 double min = (speed > 10) ? 75 :
                         (speed > 5) ? 80 : 100;
-                brake.setPressure(Math.min(min, ((140 - speed) / 140.0) * 100.0));
+                double newPressure = Math.max(press, Math.min(min, ((140 - speed) / 140.0) * 100.0));
+                brake.setPressure(Math.min(min, newPressure));
                 break;
 
             case SET_BLUE_LED:
