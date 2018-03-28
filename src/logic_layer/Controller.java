@@ -31,6 +31,7 @@ public class Controller
 
     // The current State of the button
     private State currentState;
+    int counter = 0;
 
     /**
      * Constructor
@@ -65,6 +66,15 @@ public class Controller
         if (performActions)
         {
             this.currentState = eventsToState.get(eventOccurred);
+            if(actionsToPerform.contains(Action.SOUND_BRAKE_ENGAGING))
+            {
+              counter ++;
+            }
+            if(counter == 2 && (actionsToPerform.contains(Action.SOUND_BRAKE_ENGAGING)))
+            {
+              counter = 0;
+              actionsToPerform.remove(Action.SOUND_BRAKE_ENGAGING);
+            }
             for (Action action : actionsToPerform)
             {
                 actions.execute(action);
